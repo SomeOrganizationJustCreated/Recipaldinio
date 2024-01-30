@@ -4,3 +4,52 @@
     --DefaultMidgroundColor: #C9AD8B;
     --DefaultBackgroundColor: #293040;
 }
+
+
+/*----flex----*/
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+.flex-rowReverse
+{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.flex-column
+{
+    display: flex;
+    flex-direction: column;
+}
+.flex-columnReverse
+{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/*----Justify----*/
+.justify-center {
+    justify-content: center;
+    justify-items: center;
+}
+.justify-start
+{
+    justify-content: start;
+    justify-items: start;
+}
+.justify-end
+{
+    justify-content: end;
+    justify-items: end;
+}
+.justify-evenly
+{
+    justify-content: space-evenly;
+}
+
+
+/*----align----*/
+.align-center {
+    align-content: center;
+    align-items: center;
+}
