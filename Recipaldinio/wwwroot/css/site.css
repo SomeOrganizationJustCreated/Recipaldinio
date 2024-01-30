@@ -33,3 +33,46 @@
     --DefaultMidgroundColor: #C9AD8B;
     --DefaultBackgroundColor: #293040;
 }
+
+.material-symbols-outlined
+{
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}
+
+/*----Navbar----*/
+.navrow
+{
+    background-color: #C9AD8B;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    height: 10vh;
+}
+    .logo
+    {
+        margin-left: 1vw;
+        height: 8vh;
+    }
+.navbarinputmid
+{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.navbarinput
+{
+    margin-right: 1vw;
+    height: 4vh;
+    width: 10vw;
+    border-radius: 30px;
+}
+.loupe{
+    margin-right: 2vw;
+    transform: scale(1.4);
+}
