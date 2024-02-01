@@ -150,26 +150,22 @@ body {
     transition-delay: 0.3s;
 }
 
-input[type="text"]::placeholder
-{
+input.navbarinput[type="text"]::placeholder {
     font-family: 'Playfair Display', serif;
     font-size: 80%;
     opacity: 0.5;
 }
 
-input[type="text"]
-{
+input.navbarinput[type="text"] {
     font-family: 'Playfair Display', serif;
     font-size: 125%;
 }
 
-input:focus::placeholder
-{
+input.navbarinput:focus::placeholder {
     color: transparent;
 }
 
-input:focus
-{
+input.navbarinput:focus {
     outline: none;
 }
 
