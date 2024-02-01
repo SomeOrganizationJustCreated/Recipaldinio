@@ -32,129 +32,47 @@
 }
 :root
 {
-    --DefaultTextColor: #D5B263;
-    --DefaultMidgroundColor: #C9AD8B;
-    --DefaultBackgroundColor: #293040;
+    --DefaultTextColor: #C9AD8B;
+    --DefaultMidgroundColor: #D5B263;
+    --DefaultBackgroundColor: #465371;
+    --DefaultBackgroundColorAlt: #e1e0ca;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background-color: #e1e0ca;
+    margin: 0;
+    padding: 0;
 }
 
-/*----Navbar----*/
-.navrow
-{
-    background-color: #C9AD8B;
+.Section {
     width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    height: 10vh;
-}
-    .logo
-    {
-        margin-left: 1vw;
-        height: 8vh;
-    }
-.navbarinputmid
-{
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-.navbarinput
-{
-    margin-right: 4vw;
-    padding-left: 5%;
-    padding-right: 15%;
-    overflow: scroll;
-    height: 4vh;
-    width: 15vw;
-    border-radius: 30px;
-}
-.loupe
-{
-    user-select: none;
-    cursor: pointer;
-    margin-right: 3vw;
-    margin-left: -2vw;
-    transform: scale(2);
+    height: 100vh;
 }
 
-/*input animation*/
-
-.collapse
-{
-    opacity: 0;
-    transition: all 0.4s;
-    visibility: hidden;
-    transition-delay: 0s;
+/*----Main-Banner----*/
+.Main-Banner {
+    height: 73.75%;
+    width: 100%;
+    background-image: url(../Images/Banner.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-
-.visible
+.BannerSeperator
 {
-    visibility: visible;
-    transition: all 1s;
-    height: auto;
-    transition-delay: 0.3s;
+    width: 400%;
+    height: 25%;
+    background-color: var(--DefaultMidgroundColor);
+    --mask: radial-gradient(34.41px at 50% 48.00px,#000 99%,#0000 101%) calc(50% - 40px) 0/80px 51% repeat-x, radial-gradient(34.41px at 50% -28px,#0000 99%,#000 101%) 50% 20px/80px calc(51% - 20px) repeat-x, radial-gradient(34.41px at 50% calc(100% - 48.00px),#000 99%,#0000 101%) 50% 100%/80px 51% repeat-x, radial-gradient(34.41px at 50% calc(100% + 28.00px),#0000 99%,#000 101%) calc(50% - 40px) calc(100% - 20px)/80px calc(51% - 20px) repeat-x;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+    transform: translateY(-12.5vh) scaleY(0.15) scaleX(0.25);
 }
-input[type="text"]::placeholder
+.Main-BannerCaption
 {
-    font-family: 'Playfair Display', serif;
-    font-size: 80%; 
-    opacity: 0.5; 
-}
-input[type="text"]
-{
-    font-family: 'Playfair Display', serif;
-    font-size: 125%;
-}
-input:focus::placeholder
-{
-    color: transparent; 
-}
-input:focus
-{
-    outline: none; 
-}
-
-
-/*loupe animation*/
-
-.animation1
-{
-    transition: all 0.6s;
-    transform: translateX(0vw);
-    transition-delay: 0.3s;
-    transition-delay: 0s;
-}
-
-.animation2
-{
-    transition: all 0.6s;
-    transform: translateX(-13vw);
-    transition-delay: 0.2s;
-}
-
-/*text animation*/
-
-.animatiofortext1
-{
-    opacity: 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 125%;
-    position: absolute;
-    margin-left: 85vw;
-    margin-top: 17px;
-    transition: opacity 0.3s ease; 
-    pointer-events: none;
-}
-.animatiofortext2
-{
-    transition-delay: 0.6s;
-    opacity: 1;
-    display: flex;
-    position: absolute;
-    pointer-events: auto;
+    height: 25%;
+    width: 100%;
+    margin-top: -11.25%;
 }
