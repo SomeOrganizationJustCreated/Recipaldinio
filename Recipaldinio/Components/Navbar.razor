@@ -1,11 +1,19 @@
 ﻿<div class="navrow">
     <img class="logo" src="Images/Logo.png" />
+    <p class="@(boolThatDeterminesVisibility ? "animatiofortext1" : "animatiofortext2") animatiofortext1">Click for searching!</p>
     <div class="navbarinputmid">
-        <input class="navbarinput" />
-        <span class="material-symbols-outlined loupe">search</span>
+        <div class="@(boolThatDeterminesVisibility ? "visible" : "collapse")">
+            <input type="text" class="navbarinput" placeholder=" Click to search for recipe!" />
+        </div>
+        <span @onclick="() => VisibleOrNot()" class="@(boolThatDeterminesVisibility ? "animation1" : "animation2") material-symbols-outlined loupe">search</span>
     </div>
 </div>
 
 @code {
+    bool boolThatDeterminesVisibility = true;
 
+    void VisibleOrNot()
+    {
+        boolThatDeterminesVisibility = !boolThatDeterminesVisibility ? true : false;
+    }
 }
