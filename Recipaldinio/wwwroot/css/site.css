@@ -210,10 +210,3 @@ input.navbarinput:focus {
     position: absolute;
     pointer-events: auto;
 }
-
-/*about us*/
-
-.aboutustext
-{
-    font-family: 'Pacifico', cursive;
-}

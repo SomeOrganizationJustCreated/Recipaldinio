@@ -24,6 +24,14 @@
     background-color: black;
 }
 
+/*----Font-Family----*/
+.fontfam-pacifico {
+     font-family: 'Pacifico', cursive;
+}
+.fontfam-playfair {
+     font-family: 'Playfair Display', serif;
+}
+
 /*----Font-Size----*/
 .fontSize-0_25vh { font-size: 0.25vh }
 .fontSize-0_5vh  { font-size: 0.5vh }
