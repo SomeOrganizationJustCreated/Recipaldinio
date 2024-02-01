@@ -86,6 +86,7 @@ body {
 /*----Navbar----*/
 .navrow
 {
+    z-index: 99;
     background-color: #C9AD8B;
     width: 100vw;
     position: fixed;
