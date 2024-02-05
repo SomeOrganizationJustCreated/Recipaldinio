@@ -1,21 +1,63 @@
-﻿<div class="navrow">
-    <img class="logo" src="Images/NavbarLogo.png" />
-    <a href="/">Main Page</a>
-    <a href="/recipepage">Recepies</a>
+﻿@inject NavigationManager NavMan;
+
+<div class="navrow">
+    <img class="logo noSelect" src="Images/NavbarLogo.png" draggable="false"/>
+    <div class="ml-5vw">
+        <a @onclick="() => ClickedOrNot(0)" style='text-decoration: @(clickornot[0] ? " underline" : "none"); ' class="@(clickornot[0] ? "text-midcolor" : "text-white")" href="/">Main Page</a>
+        <a @onclick="() => ClickedOrNot(1)" style='text-decoration: @(clickornot[1] ? " underline" : "none"); ' class="@(clickornot[1] ? "text-midcolor" : "text-white")" href="/recipepage">Recepies</a>
+        <a @onclick="() => ClickedOrNot(2)" style='text-decoration: @(clickornot[2] ? " underline" : "none"); ' class="@(clickornot[2] ? "text-midcolor" : "text-white")" href="/tutorials">Video Tutorials</a>
+    </div>
+    
     <p class="@(boolThatDeterminesVisibility ? "searchanimatiofortext1" : "searchanimatiofortext2") searchanimatiofortext1">Click for searching!</p>
     <div class="navbarinputmid">
         <div class="@(boolThatDeterminesVisibility ? "searchbarvisible" : "searchbarcollapse")">
             <input type="text" class="navbarinput" placeholder=" Click to search for recipe!" />
         </div>
-        <span @onclick="() => VisibleOrNot()" class="@(boolThatDeterminesVisibility ? "loupeanimation1" : "loupeanimation2") material-symbols-outlined @(boolThatDeterminesVisibility ? "text-black" : "text-white") loupe">search</span>
+        <span @onclick="VisibleOrNot" class="@(boolThatDeterminesVisibility ? "loupeanimation1" : "loupeanimation2") material-symbols-outlined @(boolThatDeterminesVisibility ? "text-black" : "text-white") loupe">search</span>
     </div>
 </div>
 
 @code {
+    List<bool> clickornot = new List<bool>() { false, false, false };
+
     bool boolThatDeterminesVisibility = false;
 
-    void VisibleOrNot()
+    protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        boolThatDeterminesVisibility = !boolThatDeterminesVisibility ? true : false;
+        if (firstRender)
+        {
+            if (NavMan.Uri.Contains("recipepage"))
+            {
+                clickornot[1] = true;
+            }
+            else if (NavMan.Uri.Contains("tutorials"))
+            {
+                clickornot[2] = true;
+            }
+            else if (NavMan.Uri.Contains("/"))
+            {
+                clickornot[0] = true;
+            }
+        }
+        StateHasChanged();
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    void VisibleOrNot() => boolThatDeterminesVisibility = !boolThatDeterminesVisibility ? true : false;
+    
+    void ClickedOrNot(int index)
+    {
+        for(int i = 0; i < clickornot.Count; i++)
+        {
+            if(i == index)
+            {
+                clickornot[i] = true;
+            }
+            else
+            {
+                clickornot[i] = false;
+            }
+        }
+        StateHasChanged();
     }
 }

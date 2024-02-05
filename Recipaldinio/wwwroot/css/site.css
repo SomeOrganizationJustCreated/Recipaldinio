@@ -59,6 +59,14 @@ body {
     height: 100vh;
 }
 
+.noSelect{
+    user-select: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
 /*----Main-Banner----*/
 .Main-Banner {
     height: 73.75%;
@@ -73,7 +81,10 @@ body {
     width: 400%;
     height: 25%;
     background-color: var(--DefaultMidgroundColor);
-    --mask: radial-gradient(34.41px at 50% 48.00px,#000 99%,#0000 101%) calc(50% - 40px) 0/80px 51% repeat-x, radial-gradient(34.41px at 50% -28px,#0000 99%,#000 101%) 50% 20px/80px calc(51% - 20px) repeat-x, radial-gradient(34.41px at 50% calc(100% - 48.00px),#000 99%,#0000 101%) 50% 100%/80px 51% repeat-x, radial-gradient(34.41px at 50% calc(100% + 28.00px),#0000 99%,#000 101%) calc(50% - 40px) calc(100% - 20px)/80px calc(51% - 20px) repeat-x;
+    --mask: radial-gradient(34.41px at 50% 48.00px,#000 99%,#0000 101%) calc(50% - 40px) 0/80px 51% repeat-x,
+        radial-gradient(34.41px at 50% -28px,#0000 99%,#000 101%) 50% 20px/80px calc(51% - 20px) repeat-x,
+        radial-gradient(34.41px at 50% calc(100% - 48.00px),#000 99%,#0000 101%) 50% 100%/80px 51% repeat-x,
+        radial-gradient(34.41px at 50% calc(100% + 28.00px),#0000 99%,#000 101%) calc(50% - 40px) calc(100% - 20px)/80px calc(51% - 20px) repeat-x;
     -webkit-mask: var(--mask);
     mask: var(--mask);
     transform: translateY(-12.5vh) scaleY(0.15) scaleX(0.25);
@@ -101,6 +112,23 @@ body {
     align-content: center;
     height: 7vh;
 }
+.navrow a{
+    font-size: 125%;
+    margin-left: 1.5vw;
+    text-decoration: none;
+}
+    .navrow a:hover
+    {
+        color: #e1e0ca;
+    }
+    .navrow a:active
+    {
+        color: var(--DefaultMidgroundColor);
+    }
+    .navrow a:visited
+    {
+        text-decoration: underline;
+    }
 .navrow img{
     height: 60%;
 }
@@ -138,7 +166,7 @@ body {
 {
     user-select: none;
     cursor: pointer;
-    margin-right: 3vw;
+    margin-right: 1.5vw;
     margin-left: -2.5vw;
     transform: scale(2);
 }
@@ -206,7 +234,7 @@ input.navbarinput:focus {
     font-family: 'Playfair Display', serif;
     font-size: 125%;
     position: absolute;
-    margin-left: 85vw;
+    margin-left: 86vw;
     margin-top: 17px;
     transition: opacity 0.3s ease;
     pointer-events: none;
