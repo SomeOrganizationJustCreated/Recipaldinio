@@ -211,3 +211,14 @@ input.navbarinput:focus {
     position: absolute;
     pointer-events: auto;
 }
+
+/*-----Recipe-Section-Index-----*/
+.recipeSection {
+    position: relative;
+}
+.topperImage {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
