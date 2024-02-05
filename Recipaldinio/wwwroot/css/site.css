@@ -231,3 +231,24 @@ input.navbarinput:focus {
     top: 0;
     left: 0;
 }
+.recipeSection button {
+    transition-duration: 0.25s;
+    transition-property: all;
+    transition-timing-function: ease;
+    border-style: solid;
+    border-color: var(--DefaultMidgroundColor);
+    font-weight: bold;
+    box-shadow: 0 0.5vh 0.2vh 0.4vh #aa8d4f;
+    text-shadow: 0 0 0 var(--DefaultBackgroundColorAlt);
+    margin-top: 0;
+}
+    .recipeSection button:hover
+    {
+        text-shadow: 0 0 0.3vh var(--DefaultBackgroundColorAlt);
+    }
+    .recipeSection button:active
+    {
+        box-shadow: 0 0 0 0 transparent;
+        text-shadow: 0 0 0 var(--DefaultBackgroundColorAlt);
+        margin-top: 1vh;
+    }
