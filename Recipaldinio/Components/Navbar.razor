@@ -1,11 +1,11 @@
 ﻿<div class="navrow">
-    <img class="logo" src="Images/Logo.png" />
+    <img class="logo " src="Images/NavbarLogo.png" />
     <p class="@(boolThatDeterminesVisibility ? "searchanimatiofortext1" : "searchanimatiofortext2") searchanimatiofortext1">Click for searching!</p>
     <div class="navbarinputmid">
         <div class="@(boolThatDeterminesVisibility ? "searchbarvisible" : "searchbarcollapse")">
             <input type="text" class="navbarinput" placeholder=" Click to search for recipe!" />
         </div>
-        <span @onclick="() => VisibleOrNot()" class="@(boolThatDeterminesVisibility ? "loupeanimation1" : "loupeanimation2") material-symbols-outlined loupe">search</span>
+        <span @onclick="() => VisibleOrNot()" class="@(boolThatDeterminesVisibility ? "loupeanimation1" : "loupeanimation2") material-symbols-outlined @(boolThatDeterminesVisibility ? "text-black" : "text-white") loupe">search</span>
     </div>
 </div>
 
