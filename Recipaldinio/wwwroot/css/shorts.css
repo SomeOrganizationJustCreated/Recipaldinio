@@ -177,6 +177,9 @@
 {
     color: var(--DefaultBackgroundColorAlt);
 }
+.text-midcolor{
+    color: var(--DefaultMidgroundColor);
+}
 .text-black {
     color: black;
 }
