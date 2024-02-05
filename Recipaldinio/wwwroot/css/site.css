@@ -42,6 +42,7 @@
     --DefaultMidgroundColor: #D5B263;
     --DefaultBackgroundColor: #293040;
     --DefaultBackgroundColorAlt: #e1e0ca;
+    --DefaultMidgroundColor2: #293040;
 }
 html {
     scroll-behavior: smooth;
@@ -88,7 +89,7 @@ body {
 .navrow
 {
     z-index: 99;
-    background-color: var(--DefaultTextColor);
+    background-color: var(--DefaultMidgroundColor2);
     width: 100vw;
     position: fixed;
     top: 0;
@@ -98,7 +99,13 @@ body {
     justify-content: space-between;
     align-items: center;
     align-content: center;
-    height: 10vh;
+    height: 7vh;
+}
+.navrow img{
+    height: 60%;
+}
+.navrow p {
+    color: white;
 }
 
 .logo
@@ -116,6 +123,8 @@ body {
 
 .navbarinput
 {
+    border-style: solid;
+    border-color: black;
     margin-right: 4vw;
     padding-left: 5%;
     padding-right: 15%;
@@ -130,7 +139,7 @@ body {
     user-select: none;
     cursor: pointer;
     margin-right: 3vw;
-    margin-left: -2vw;
+    margin-left: -2.5vw;
     transform: scale(2);
 }
 

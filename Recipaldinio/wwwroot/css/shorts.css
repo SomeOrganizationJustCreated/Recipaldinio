@@ -170,6 +170,13 @@
 .text-default {
     color: var(--DefaultTextColor);
 }
+.text-bgcolor{
+    color: var(--DefaultBackgroundColor);
+}
+.text-bgcoloralt
+{
+    color: var(--DefaultBackgroundColorAlt);
+}
 .text-black {
     color: black;
 }

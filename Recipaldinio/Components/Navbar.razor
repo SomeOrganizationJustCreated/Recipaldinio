@@ -7,7 +7,7 @@
         <div class="@(boolThatDeterminesVisibility ? "searchbarvisible" : "searchbarcollapse")">
             <input type="text" class="navbarinput" placeholder=" Click to search for recipe!" />
         </div>
-        <span @onclick="() => VisibleOrNot()" class="@(boolThatDeterminesVisibility ? "loupeanimation1" : "loupeanimation2") material-symbols-outlined loupe">search</span>
+        <span @onclick="() => VisibleOrNot()" class="@(boolThatDeterminesVisibility ? "loupeanimation1" : "loupeanimation2") material-symbols-outlined @(boolThatDeterminesVisibility ? "text-black" : "text-white") loupe">search</span>
     </div>
 </div>
 
