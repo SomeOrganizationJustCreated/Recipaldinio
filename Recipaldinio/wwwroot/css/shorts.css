@@ -4,6 +4,7 @@
     --DefaultMidgroundColor: #D5B263;
     --DefaultBackgroundColor: #293040;
     --DefaultBackgroundColorAlt: #e1e0ca;
+    --DefaultBackgroundColor2: #293040;
 }
 
 
@@ -30,6 +31,10 @@
 }
 .fontfam-playfair {
      font-family: 'Playfair Display', serif;
+}
+.fontfam-merriweather
+{
+    font-family: 'Merriweather', serif;
 }
 
 /*----Font-Size----*/
