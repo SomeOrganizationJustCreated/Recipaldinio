@@ -232,6 +232,31 @@
     justify-content: space-between;
 }
 
+/*---JustifySelf---*/
+.justifySelf-center{
+    justify-self: center;
+}
+.justifySelf-start{
+    justify-self: start;
+}
+.justifySelf-flexStart{
+    justify-self: flex-start;
+}
+.justifySelf-selfStart{
+    justify-self: self-start;
+}
+.justifySelf-end{
+    justify-self: end;
+}
+.justifySelf-flexEnd
+{
+    justify-self: flex-end;
+}
+.justifySelf-selfEnd
+{
+    justify-self: self-end;
+}
+
 /*----Align----*/
 .align-start {
     align-content: start;
@@ -395,6 +420,8 @@
 
 /*----Margin----*/
 /*---Margin-top---*/
+.mt-10vw    { margin-top: 10vw; }
+.mt-10vh    { margin-top: 10vh; }
 .mt-5vh    { margin-top: 5vh; }
 .mt-5vw    { margin-top: 5vw; }
 .mt-4_75vh { margin-top: 4.75vh; }
