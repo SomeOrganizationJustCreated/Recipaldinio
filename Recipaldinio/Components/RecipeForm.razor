@@ -24,7 +24,7 @@
                     {
                         int loopi = i;
                         <div class="flex-row ml-1vw mt-2_25vh h-5vh w-75p justify-center align-center">
-                            <input id="IngredientInput@(loopi)" @onkeydown="(EventArgs) => { Ingredients[loopi] += (EventArgs.Key.ToString()); }" type="text" placeholder="Ingredient @(loopi)" @bind-value="Ingredients[loopi]" />
+                            <input id="IngredientInput@(loopi)" type="text" placeholder="Ingredient @(loopi)" @bind-value="Ingredients[loopi]" />
                             <span @onclick="() => { DeleteIngredient(loopi); }" class="material-symbols-outlined noSelect text-bgcolor cursor-pointer">delete</span>
                         </div>
                     }

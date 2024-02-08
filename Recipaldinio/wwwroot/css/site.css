@@ -313,7 +313,8 @@ input.navbarinput:focus {
     -webkit-transform: rotate(45deg);
     margin-bottom: 1vh;
     transition: all 1s 0 ease;
-   /*----RecipeList----*/
+}
+    /*----RecipeList----*/
 .RecipeList-Header
 {
     font-weight: 800;
