@@ -313,16 +313,13 @@ input.navbarinput:focus {
     -webkit-transform: rotate(45deg);
     margin-bottom: 1vh;
     transition: all 1s 0 ease;
-   /*----RecipeList----*/
+}
+    /*----RecipeList----*/
 .RecipeList-Header
 {
     font-weight: 800;
     text-transform: uppercase;
-    background-image: linear-gradient(to right, #293040, #50425f, #835170, #b46370, #d77f64, #de8d5c, #e09d56, #ddae52, #daa74f, #d7a04c, #d49949, #d19246);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-background-clip: text;
-    -moz-text-fill-color: transparent;
+    color: var(--DefaultBackgroundColor)
 }
 
 .textanimationrecipes
@@ -347,20 +344,9 @@ input.navbarinput:focus {
     {
         transform: scale(1.15);
     }
-.bordereffect
+.text
 {
-    background-color: #D5B263;
-}
-@property --gradient-angle
-{
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-}
-.bordereffect
-{
-    border: solid 4px transparent;
-    background-image: linear-gradient(to right top, #728ae1, #677de8, #6070ec, #5e61f0, #604ff1, #5f46f0, #603dee, #6032ec, #5934e9, #5335e6, #4c36e3, #4537e0);
-    -webkit-background-clip: border-box;
-    -moz-background-clip: border-box;
+    font-size: 1vw;
+    color: var(--DefaultBackgroundColor);
+    font-family: 'Archivo Black', sans-serif;
 }
