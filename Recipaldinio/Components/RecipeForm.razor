@@ -1,0 +1,81 @@
+﻿
+
+<div class="w-100p bg-bgDefault RecipeForm flex-column justify-center align-center"
+     style='height: "auto" : "10vh"); transition-duration: 1.5s'>
+    <button @onclick="ToggleCreationForm" class="RecipeForm-OpClBut bg-transparent border-none flex-row align-center h-5vh">
+        <i class="@(IsOpen ? "arrowUp" : "arrowDown") cursor-pointer noSelect"></i>
+    </button>
+    <div class="flex-row justify-center align-start" style="position: absolute; top: 2.75vh">
+        <h1 class="text-bgcoloralt m-0 dropShadow-Soft_gray-0_1vh">Recipe Creation Form</h1>
+    </div>
+    <div style='visibility: @(IsOpen ? "visible" : "hidden");
+                height: @(IsOpen ? "100vh" : "0vh");
+                transition-duration: 1.5s; transition-delay: 0.1s; overflow: hidden;' 
+         class='mt-10vh borderRad-1_5vh mb-5vh w-90p bg-midDefault flex-column justify-evenly align-center'>        
+        <div style="visibility: @(IsOpen ? "visible" : "hidden"); transition-duration: 1.5s;"
+             class="w-100p h-100p flex-column justify-evenly align-center">
+            <div class="flex-column justify-start align-center w-75p h-100p" style="transition-duration: 1.5s; position: relative;">
+                <h1 class="m-0 text-bgcolor dropShadow-Soft_gray-0_1vh" style="position: absolute; top: 1.5vh;">Ingredients</h1>
+                <div class="RecipeForm-OpClBut">
+                    <button @onclick="AddIngredientClicked">Add Ingredient</button>
+                </div>
+                <div class="mt-10vh mb-2vh w-25p flex-column justify-start align-center h-100vh" style="overflow: scroll">
+                    @for (int i = 0; i < Ingredients.Count; i++)
+                    {
+                        int loopi = i;
+                        <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
+                            <input id="IngredientInput@(loopi)" type="text" placeholder="Ingredient @(loopi)" @bind-value="Ingredients[loopi]" />
+                            <span @onclick="() => { DeleteIngredient(loopi); }" class="material-symbols-outlined noSelect text-bgcolor cursor-pointer">delete</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    /// <summary>
+    /// <para>Max Ingredients allowed to add.</para>
+    /// <para>-1 means infinite Ingredients allowed.</para>
+    /// </summary>
+    [Parameter]
+    public int MaxIngredients { get; set; } = -1;
+    /// <summary>
+    /// Wether the Form is opened or not on default.
+    /// </summary>
+    [Parameter]
+    public bool IsOpen { get; set; } = false;
+
+    public List<string> Ingredients = new();
+
+    public void ToggleCreationForm()
+    {
+        IsOpen = !IsOpen;
+        StateHasChanged();
+    }
+
+    public void AddIngredientClicked()
+    {
+        if (MaxIngredients == -1)
+        {
+            Ingredients.Add("");
+        }
+        else
+        {
+            if (Ingredients.Count < MaxIngredients)
+            {
+                Ingredients.Add("");
+            }
+        }
+        StateHasChanged();
+    }
+
+    public void DeleteIngredient(int index)
+    {
+        Ingredients.RemoveAt(index);
+        StateHasChanged();
+    }
+
+}
