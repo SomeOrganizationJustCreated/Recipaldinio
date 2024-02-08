@@ -1,4 +1,6 @@
 ﻿@using Recipaldinio.Code
+@inject StorageHandler storageHandler;
+@inject NavigationManager NavMan;
 
 
 <div class="w-100p bg-bgDefault RecipeForm flex-column justify-center align-center"
@@ -22,7 +24,7 @@
                         <input class="w-95p" id="recipeInputName" type="text" placeholder="Recipe Name" @bind-value="recipe.Information.Name" />
                     </div>
                     <div class="flex-row mt-2_25vh w-75p justify-center align-center">
-                        <textarea @onkeydown="args => { Console.WriteLine(recipe.Information.Description); }" @oninput="args => { recipe.Information.Description = args.Value.ToString(); }" class="w-95p" id="recipeInputDescription" placeholder="Recipe Description"></textarea>
+                        <textarea @oninput="args => { recipe.Information.Description = args.Value.ToString(); }" class="w-95p" id="recipeInputDescription" placeholder="Recipe Description"></textarea>
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
                         <p class="text-bgcolor m-0">Calories</p>
@@ -86,7 +88,7 @@
     </div>
     <div style="visibility: @(IsOpen ? "visible" : "hidden"); transition-duration: 0.5s; transition-delay: @(IsOpen ? "1s" : "0"); overflow: hidden;"
          class="flex-row justify-center align-center mt-2_5vh mb-2_5vh w-100p @(IsOpen ? "h-10vh" : "h-0")">
-        <button class="w-25p h-50p bg-midDefault borderRad-1_5vh fontSize-1_25vh text-bgcolor">Create Recipe</button>
+        <button @onclick="CreateRecipe" class="w-25p h-50p bg-midDefault borderRad-1_5vh fontSize-1_25vh text-bgcolor">Create Recipe</button>
     </div>
 </div>
 
@@ -112,8 +114,9 @@
         StateHasChanged();
     }
 
-    public void AddIngredientClicked()
+    public async Task AddIngredientClicked()
     {
+        Console.WriteLine((await storageHandler.RetrieveValueAsync())[0].Information.Description);
         if (MaxIngredients == -1)
         {
             recipe.Ingredients.Add("");
@@ -146,4 +149,11 @@
         StateHasChanged();
     }
 
+    public async Task CreateRecipe()
+    {
+        await storageHandler.AddRecipe(recipe);
+        recipe = new Recipe();
+        NavMan.NavigateTo(NavMan.Uri);
+        StateHasChanged();
+    }
 }
