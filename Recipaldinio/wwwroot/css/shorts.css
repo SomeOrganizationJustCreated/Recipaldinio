@@ -4,6 +4,7 @@
     --DefaultMidgroundColor: #D5B263;
     --DefaultBackgroundColor: #293040;
     --DefaultBackgroundColorAlt: #e1e0ca;
+    --DefaultBackgroundColor2: #293040;
 }
 
 
@@ -33,6 +34,10 @@
 }
 .fontfam-playfair {
      font-family: 'Playfair Display', serif;
+}
+.fontfam-merriweather
+{
+    font-family: 'Merriweather', serif;
 }
 
 /*----Font-Size----*/
@@ -233,6 +238,31 @@
 }
 .justify-between {
     justify-content: space-between;
+}
+
+/*---JustifySelf---*/
+.justifySelf-center{
+    justify-self: center;
+}
+.justifySelf-start{
+    justify-self: start;
+}
+.justifySelf-flexStart{
+    justify-self: flex-start;
+}
+.justifySelf-selfStart{
+    justify-self: self-start;
+}
+.justifySelf-end{
+    justify-self: end;
+}
+.justifySelf-flexEnd
+{
+    justify-self: flex-end;
+}
+.justifySelf-selfEnd
+{
+    justify-self: self-end;
 }
 
 /*----Align----*/

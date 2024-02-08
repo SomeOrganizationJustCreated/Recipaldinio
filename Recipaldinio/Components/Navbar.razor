@@ -3,9 +3,9 @@
 <div class="navrow">
     <img class="logo noSelect" src="Images/NavbarLogo.png" draggable="false"/>
     <div class="ml-5vw">
-        <a @onclick="() => ClickedOrNot(0)" style='text-decoration: @(clickornot[0] ? " underline" : "none"); ' class="@(clickornot[0] ? "text-midcolor" : "text-white")" href="/">Main Page</a>
-        <a @onclick="() => ClickedOrNot(1)" style='text-decoration: @(clickornot[1] ? " underline" : "none"); ' class="@(clickornot[1] ? "text-midcolor" : "text-white")" href="/recipepage">Recepies</a>
-        <a @onclick="() => ClickedOrNot(2)" style='text-decoration: @(clickornot[2] ? " underline" : "none"); ' class="@(clickornot[2] ? "text-midcolor" : "text-white")" href="/tutorials">Video Tutorials</a>
+        <a @onclick="() => ClickedOrNot(0)" style='text-decoration: @(clickornot[0] ? " underline" : ""); --hovercolor: @(clickornot[0] ? "#D5B263" : "#e1e0ca")' class="@(clickornot[0] ? "text-midcolor" : "text-white")" href="/">Main Page</a>
+        <a @onclick="() => ClickedOrNot(1)" style='text-decoration: @(clickornot[1] ? " underline" : ""); --hovercolor: @(clickornot[1] ? "#D5B263" : "#e1e0ca")' class="@(clickornot[1] ? "text-midcolor" : "text-white")" href="/recipepage">Recepies</a>
+        <a @onclick="() => ClickedOrNot(2)" style='text-decoration: @(clickornot[2] ? " underline" : ""); --hovercolor: @(clickornot[2] ? "#D5B263" : "#e1e0ca")' class="@(clickornot[2] ? "text-midcolor" : "text-white")" href="/tutorials">Video Tutorials</a>
     </div>
     
     <p class="@(boolThatDeterminesVisibility ? "searchanimatiofortext1" : "searchanimatiofortext2") searchanimatiofortext1">Click for searching!</p>

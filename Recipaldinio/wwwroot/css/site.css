@@ -119,15 +119,12 @@ body {
 }
     .navrow a:hover
     {
-        color: #e1e0ca;
+        color: var(--hovercolor);
+        text-decoration: underline;
     }
     .navrow a:active
     {
         color: var(--DefaultMidgroundColor);
-    }
-    .navrow a:visited
-    {
-        text-decoration: underline;
     }
 .navrow img{
     height: 60%;
@@ -316,4 +313,40 @@ input.navbarinput:focus {
     -webkit-transform: rotate(45deg);
     margin-bottom: 1vh;
     transition: all 1s 0 ease;
+}
+    /*----RecipeList----*/
+.RecipeList-Header
+{
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--DefaultBackgroundColor)
+}
+
+.textanimationrecipes
+{
+    border: 5px solid black;
+    font-weight: 800;
+}
+
+.imageeffet
+{
+    width: 20vw;
+    overflow: hidden;
+}
+    .imageeffet img
+    {
+        width: 100%;
+        height: 100%;
+        transform: scale(1.05);
+        transition: transform 0.35s ease-in-out;
+    }
+    .imageeffet img:hover
+    {
+        transform: scale(1.15);
+    }
+.text
+{
+    font-size: 1vw;
+    color: var(--DefaultBackgroundColor);
+    font-family: 'Archivo Black', sans-serif;
 }
