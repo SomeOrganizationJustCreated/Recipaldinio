@@ -1,4 +1,5 @@
-﻿
+﻿@using Recipaldinio.Code
+
 
 <div class="w-100p bg-bgDefault RecipeForm flex-column justify-center align-center"
      style='height: "auto" : "10vh"); transition-duration: 1.5s'>
@@ -9,56 +10,83 @@
         <h1 class="text-bgcoloralt m-0 dropShadow-Soft_gray-0_1vh">Recipe Creation Form</h1>
     </div>
     <div style='visibility: @(IsOpen ? "visible" : "hidden");
-                height: @(IsOpen ? "100vh" : "0vh");
+                height: @(IsOpen ? "90vh" : "0vh");
                 transition-duration: 1.5s; transition-delay: 0.1s; overflow: hidden;'
-         class='mt-10vh borderRad-1_5vh mb-5vh w-90p bg-midDefault flex-column justify-evenly align-center'>
+         class='mt-10vh borderRad-1_5vh w-90p bg-midDefault flex-column justify-evenly align-center'>
         <div style="visibility: @(IsOpen ? "visible" : "hidden"); transition-duration: 1.5s;"
              class="w-100p h-100p flex-row justify-evenly align-center">
             <div class="flex-column justify-start align-center w-25p h-100p" style="transition-duration: 1.5s; position: relative;">
+                <h1 class="m-0 text-bgcolor dropShadow-Soft_gray-0_1vh" style="position: absolute; top: 1.5vh;">Information</h1>
+                <div class="mt-10vh mb-2vh w-100p flex-column justify-start align-center h-100vh" style="overflow: scroll">
+                    <div class="flex-row mt-2_25vh h-5vh w-50p justify-center align-center">
+                        <input class="w-95p" id="recipeInputName" type="text" placeholder="Recipe Name" @bind-value="recipe.Information.Name" />
+                    </div>
+                    <div class="flex-row mt-2_25vh w-75p justify-center align-center">
+                        <textarea @onkeydown="args => { Console.WriteLine(recipe.Information.Description); }" @oninput="args => { recipe.Information.Description = args.Value.ToString(); }" class="w-95p" id="recipeInputDescription" placeholder="Recipe Description"></textarea>
+                    </div>
+                    <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
+                        <p class="text-bgcolor m-0">Calories</p>
+                        <input class="w-95p" id="recipeInputCalories" type="number" placeholder="Calories" @bind-value="recipe.Information.Calories" />
+                    </div>
+                    <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
+                        <p class="text-bgcolor m-0">Proteins</p>
+                        <input class="w-95p" id="recipeInputProteins" type="number" placeholder="proteins" @bind-value="recipe.Information.Proteins" />
+                    </div>
+                    <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
+                        <p class="text-bgcolor m-0">Fats</p>
+                        <input class="w-95p" id="recipeInputFats" type="number" placeholder="fats" @bind-value="recipe.Information.Fats" />
+                    </div>
+                    <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
+                        <p class="text-bgcolor m-0">Carbohydrates</p>
+                        <input class="w-95p" id="recipeInputCarbohydrates" type="number" placeholder="carbohydrates" @bind-value="recipe.Information.Carbohydrates" />
+                    </div>
+                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh h-5p w-33_3p justify-evenly align-center">
+                        <p class="text-bgcolor m-0">Is Vegan</p>
+                        <input id="recipeInputIsVegan" type="checkbox" placeholder="Vegan" @bind="recipe.Information.IsVegan" />
+                    </div>
+                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh h-5p w-33_3p justify-evenly align-center">
+                        <p class="text-bgcolor m-0">Contains Pig</p>
+                        <input id="recipeInputContainsPig" type="checkbox" placeholder="ContainsPig" @bind="recipe.Information.ContainsPig" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex-column justify-start align-center w-25p h-100p" style="transition-duration: 1.5s; position: relative;">
                 <h1 class="m-0 text-bgcolor dropShadow-Soft_gray-0_1vh" style="position: absolute; top: 1.5vh;">Ingredients</h1>
                 <div class="RecipeForm-OpClBut">
-                    <button @onclick="AddIngredientClicked">Add Ingredient</button>
+                    <button @onclick="AddIngredientClicked">Add</button>
                 </div>
                 <div class="mt-10vh mb-2vh w-100p flex-column justify-start align-center h-100vh" style="overflow: scroll">
-                    @for (int i = 0; i < Ingredients.Count; i++)
+                    @for (int i = 0; i < recipe.Ingredients.Count; i++)
                     {
                         int loopi = i;
                         <div class="flex-row ml-1vw mt-2_25vh h-5vh w-75p justify-center align-center">
-                            <input id="IngredientInput@(loopi)" type="text" placeholder="Ingredient @(loopi)" @bind-value="Ingredients[loopi]" />
+                            <input id="IngredientInput@(loopi + 1)" type="text" placeholder="Ingredient @(loopi + 1)" @bind-value="recipe.Ingredients[loopi]"/>
                             <span @onclick="() => { DeleteIngredient(loopi); }" class="material-symbols-outlined noSelect text-bgcolor cursor-pointer">delete</span>
                         </div>
                     }
                 </div>
             </div>
-            <div class="flex-column justify-start align-center w-25p h-100p" style="transition-duration: 1.5s; position: relative;">
-                <h1 class="m-0 text-bgcolor dropShadow-Soft_gray-0_1vh" style="position: absolute; top: 1.5vh;">Information</h1>
+            <div class="flex-column justify-start align-center w-50p h-100p" style="transition-duration: 1.5s; position: relative;">
+                <h1 class="m-0 text-bgcolor dropShadow-Soft_gray-0_1vh" style="position: absolute; top: 1.5vh;">Instructions</h1>
+                <div class="RecipeForm-OpClBut mr-5vw">
+                    <button @onclick="AddInstructionClicked">Add</button>
+                </div>
                 <div class="mt-10vh mb-2vh w-100p flex-column justify-start align-center h-100vh" style="overflow: scroll">
-                    <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
-                        <input type="text" placeholder="Recipe Name" />
-                    </div>
-                    <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
-                        <input type="number" placeholder="Calories" />
-                    </div>
-                    <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
-                        <input type="number" placeholder="proteins" />
-                    </div>
-                    <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
-                        <input type="number" placeholder="fats" />
-                    </div>
-                    <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
-                        <input type="number" placeholder="carbohydrates" />
-                    </div>
-                    <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
-                        <p>Is Vegan</p>
-                        <input type="checkbox" placeholder="Vegan" />
-                    </div>
-                    <div class="flex-row mt-2_25vh h-5vh w-75p justify-center align-center">
-                        <p>Contains Pig</p>
-                        <input type="checkbox" placeholder="ContainsPig"/>
-                    </div>
+                    @for (int i = 0; i < recipe.Steps.Count; i++)
+                    {
+                        int loopi = i;
+                        <div class="flex-row ml-1vw mt-2_25vh h-5vh w-75p justify-center align-center">
+                            <input class="w-75p" id="InstructionInput@(loopi + 1)" type="text" placeholder="Instruction @(loopi + 1)" @bind-value="recipe.Steps[loopi]"/>
+                            <span @onclick="() => { DeleteInstruction(loopi); }" class="material-symbols-outlined noSelect text-bgcolor cursor-pointer">delete</span>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
+    </div>
+    <div style="visibility: @(IsOpen ? "visible" : "hidden"); transition-duration: 0.5s; transition-delay: @(IsOpen ? "1s" : "0"); overflow: hidden;"
+         class="flex-row justify-center align-center mt-2_5vh mb-2_5vh w-100p @(IsOpen ? "h-10vh" : "h-0")">
+        <button class="w-25p h-50p bg-midDefault borderRad-1_5vh fontSize-1_25vh text-bgcolor">Create Recipe</button>
     </div>
 </div>
 
@@ -76,7 +104,7 @@
     [Parameter]
     public bool IsOpen { get; set; } = false;
 
-    public List<string> Ingredients = new();
+    public Recipe recipe = new Recipe();
 
     public void ToggleCreationForm()
     {
@@ -88,13 +116,13 @@
     {
         if (MaxIngredients == -1)
         {
-            Ingredients.Add("");
+            recipe.Ingredients.Add("");
         }
         else
         {
-            if (Ingredients.Count < MaxIngredients)
+            if (recipe.Ingredients.Count < MaxIngredients)
             {
-                Ingredients.Add("");
+                recipe.Ingredients.Add("");
             }
         }
         StateHasChanged();
@@ -102,7 +130,19 @@
 
     public void DeleteIngredient(int index)
     {
-        Ingredients.RemoveAt(index);
+        recipe.Ingredients.RemoveAt(index);
+        StateHasChanged();
+    }
+
+    public void AddInstructionClicked()
+    {
+        recipe.Steps.Add("");
+        StateHasChanged();
+    }
+
+    public void DeleteInstruction(int index)
+    {
+        recipe.Steps.RemoveAt(index);
         StateHasChanged();
     }
 
