@@ -23,6 +23,9 @@
 .bg-black {
     background-color: black;
 }
+.bg-transparent {
+    background-color: transparent;
+}
 
 /*----Font-Family----*/
 .fontfam-pacifico {
@@ -283,6 +286,13 @@
 .borderRad-5_5vh { border-radius: 5.5vh; }
 .borderRad-6vh   { border-radius: 6vh; }
 
+/*----Border----*/
+.border-none {
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+}
+
 /*----Width----*/
 .w-100p  { width: 100%; }
 .w-100vw { width: 100vw; }
@@ -395,6 +405,8 @@
 
 /*----Margin----*/
 /*---Margin-top---*/
+.mt-10vh   { margin-top: 10vh; }
+.mt-10vw   { margin-top: 10vw; }
 .mt-5vh    { margin-top: 5vh; }
 .mt-5vw    { margin-top: 5vw; }
 .mt-4_75vh { margin-top: 4.75vh; }

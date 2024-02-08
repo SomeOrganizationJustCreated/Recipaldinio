@@ -280,3 +280,40 @@ input.navbarinput:focus {
         text-shadow: 0 0 0 var(--DefaultBackgroundColorAlt);
         margin-top: 1vh;
     }
+
+/*----RecipeForm----*/
+.RecipeForm {
+    position: relative;
+    transition-duration: 1.5s;
+    transition-delay: 0s;
+    transition-property: all;
+    transition-timing-function: ease;
+}
+.RecipeForm-OpClBut {
+    position: absolute;
+    top: 2.5vh;
+    right: 2vw;
+}
+.arrowUp
+{
+    border: solid var(--DefaultBackgroundColorAlt);
+    border-width: 0 6px 6px 0;
+    display: inline-block;
+    padding: 10px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    margin-top: 1vh;
+    transition: all 1s 0 ease;
+}
+
+.arrowDown
+{
+    border: solid var(--DefaultBackgroundColorAlt);
+    border-width: 0 6px 6px 0;
+    display: inline-block;
+    padding: 10px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin-bottom: 1vh;
+    transition: all 1s 0 ease;
+}
