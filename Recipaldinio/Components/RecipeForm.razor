@@ -122,15 +122,33 @@
 
     public async Task LoadFile(InputFileChangeEventArgs IFCEA)
     {
+        Console.WriteLine(IFCEA.File.ContentType);
         if (IFCEA.File.ContentType.Contains("image"))
         {
             var memoryStream = new MemoryStream();
-            IBrowserFile file = await IFCEA.File.RequestImageFileAsync("jpg", 384, 384);
-            await file.OpenReadStream().CopyToAsync(memoryStream);
+            IBrowserFile file = await IFCEA.File.RequestImageFileAsync("image/jpg", 384, 384);
+            if (file.Size > 16000)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "File size to large!");
+                return;
+            }
+            try
+            {
+                await file.OpenReadStream(100000).CopyToAsync(memoryStream);
+            }
+            catch
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "File size to large!");
+                return;
+            }
             byte[] bar = memoryStream.ToArray();
             string string64 = Convert.ToBase64String(bar);
             Console.WriteLine(string64);
             recipe.Image64 = string64;
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "please input JPG Image");
         }
     }
 
