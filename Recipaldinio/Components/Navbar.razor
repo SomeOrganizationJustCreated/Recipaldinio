@@ -11,7 +11,7 @@
     <p class="@(boolThatDeterminesVisibility ? "searchanimatiofortext1" : "searchanimatiofortext2") searchanimatiofortext1">Click for searching!</p>
     <div class="navbarinputmid">
         <div class="@(boolThatDeterminesVisibility ? "searchbarvisible" : "searchbarcollapse")">
-            <input type="text" class="navbarinput" placeholder=" Click to search for recipe!" />
+            <input @onkeydown='(KeyEventArgs) => {if (KeyEventArgs.Key == "Enter"){NavMan.NavigateTo($"/search/{SearchInput}", true);}}' @oninput="args => { SearchInput = args.Value.ToString(); }" type="text" class="navbarinput" placeholder=" Click to search for recipe!" @bind="SearchInput"/>
         </div>
         <span @onclick="VisibleOrNot" class="@(boolThatDeterminesVisibility ? "loupeanimation1" : "loupeanimation2") material-symbols-outlined @(boolThatDeterminesVisibility ? "text-black" : "text-white") loupe">search</span>
     </div>
@@ -19,6 +19,8 @@
 
 @code {
     List<bool> clickornot = new List<bool>() { false, false, false };
+
+    public string SearchInput = "";
 
     bool boolThatDeterminesVisibility = false;
 
