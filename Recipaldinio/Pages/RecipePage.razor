@@ -1,4 +1,6 @@
 ﻿@page "/recipepage"
+@using Recipaldinio.Code;
+@inject StorageHandler storageHandler;
 
 <Navbar></Navbar>
 <br/>
@@ -11,21 +13,43 @@
         <h1 class="fontfam-playfair RecipeList-Header dropShadow-Soft_gray-0_1vh fontSize-5vh">Recipes for You</h1>
     </div>
     <div class="w-100p flex-row" style="flex-wrap:wrap;">
-        @for (int i = 0; i < 20; i++)
+        @for (var i = 0; i < ShowItems; i++)
         {
-            int loopi = i;
-            //make this list work likke its supposed to please.
+            var loopi = i;
+            //make this list work like it's supposed to please.
             <div class="flex-column w-33_3p justify-center align-center">
                 <div class="noSelect imageeffet borderRad-6vh">
-                    <img class="borderRad-6vh" src="Images/Spaghetti.jpg" />
+                    <img class="borderRad-6vh" alt="Some Image" src="Images/Spaghetti.jpg" />
                 </div>
-                <p class="text w-65p alignText-center">@(loopi). Feel Like a Million Bucks with This Baked Spaghetti Recipe</p>
+                <p class="text w-65p alignText-center">@(loopi). Recipes[loopi].Information.Name</p>
             </div>
         }
+        <div class="flex-row justify-center align-center w-100p">
+            <button class="morebutton align-center justifySelf-center mt-3vh w-12_5vw mb-1_5vh borderRad-6vh fontfam-merriweather" @onclick="ShowMore">View more recipes</button>
+        </div>
     </div>
 </section>
 
 
 @code {
+    public int ShowItems = 0;
+    public List<Recipe> Recipes = new();
 
+    void ShowMore()
+    {
+        ShowItems += 3;
+        if (ShowItems > Recipes.Count)
+        {
+            ShowItems = Recipes.Count;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Recipes = await storageHandler.RetrieveValueAsync();
+            ShowMore();
+        }
+    }
 }

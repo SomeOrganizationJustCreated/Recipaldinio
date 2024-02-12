@@ -256,6 +256,9 @@ input.navbarinput:focus {
     top: 0;
     left: 0;
 }
+
+/*button Animation*/
+
 .recipeSection button {
     transition-duration: 0.25s;
     transition-property: all;
@@ -350,3 +353,31 @@ input.navbarinput:focus {
     color: var(--DefaultBackgroundColor);
     font-family: 'Archivo Black', sans-serif;
 }
+.morebutton
+{
+    cursor: pointer;
+    font-size: 110%;
+    background-color: var(--DefaultBackgroundColor);
+    color: var(--DefaultBackgroundColorAlt);
+    transition-duration: 0.25s;
+    transition-property: all;
+    transition-timing-function: ease;
+    border-style: solid;
+    border-color: var(--DefaultBackgroundColor);
+    font-weight: bold;
+    box-shadow: 0 0.2vh 0.1vh 0.2vh #2b3052;
+    text-shadow: 0 0 0 var(--DefaultBackgroundColor);
+    height: 6vh;
+    transform: translateY(-1vh);
+}
+    .morebutton:hover
+    {
+        text-shadow: 0 0 0.15vh var(--DefaultBackgroundColor);
+    }
+
+    .morebutton:active
+    {
+        box-shadow: 0 0 0 0 transparent;
+        text-shadow: 0 0 0 var(--DefaultBackgroundColor);
+        transform: translateY(0);
+    }
