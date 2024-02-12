@@ -3,20 +3,21 @@
     public class Recipe
     {
         public RecipeUnits Units { get; set; } = new RecipeUnits();
-        public List<string> Ingredients { get; set; }
+        public List<string> Ingredients { get; set; } = new();
         public RecipeInformation Information { get; set; } = new RecipeInformation();
-        public List<string> Steps { get; set; }
+        public List<string> Steps { get; set; } = new();
     }
 
     public class RecipeInformation
     {
-        public string Name { get; set; }
-        public int Calories { get; set; }
-        public int Fats { get; set; }
-        public int Proteins { get; set; }
-        public int Carbohydrates { get; set; }
-        public bool IsVegan { get; set; }
-        public bool ContainsPig { get; set; }
+        public string Name { get; set; } = "";
+        public string Description { get; set; } = "";
+        public int Calories { get; set; } = 0;
+        public int Fats { get; set; } = 0;
+        public int Proteins { get; set; } = 0;
+        public int Carbohydrates { get; set; } = 0;
+        public bool? IsVegan { get; set; } = null;
+        public bool? ContainsPig { get; set; } = null;
     }
 
     public class RecipeUnits
