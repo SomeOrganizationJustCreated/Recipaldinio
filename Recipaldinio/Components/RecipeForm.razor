@@ -1,6 +1,8 @@
 ﻿@using Recipaldinio.Code
 @inject StorageHandler storageHandler;
 @inject NavigationManager NavMan;
+@inject IJSRuntime JsRuntime;
+@inject GlobalVarHandler globalVarHandler;
 
 
 <div class="w-100p bg-bgDefault RecipeForm flex-column justify-center align-center"
@@ -21,33 +23,33 @@
                 <h1 class="m-0 text-bgcolor dropShadow-Soft_gray-0_1vh" style="position: absolute; top: 1.5vh;">Information</h1>
                 <div class="mt-10vh mb-2vh w-100p flex-column justify-start align-center h-100vh" style="overflow: scroll">
                     <div class="flex-row mt-2_25vh h-5vh w-50p justify-center align-center">
-                        <input class="w-95p" id="recipeInputName" type="text" placeholder="Recipe Name" @bind-value="recipe.Information.Name" />
+                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputName" type="text" placeholder="Recipe Name" @bind-value="recipe.Information.Name" />
                     </div>
                     <div class="flex-row mt-2_25vh w-75p justify-center align-center">
-                        <textarea @oninput="args => { recipe.Information.Description = args.Value.ToString(); }" class="w-95p" id="recipeInputDescription" placeholder="Recipe Description"></textarea>
+                        <textarea @oninput="args => { recipe.Information.Description = args.Value.ToString(); }" class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputDescription" placeholder="Recipe Description"></textarea>
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
-                        <p class="text-bgcolor m-0">Calories</p>
-                        <input class="w-95p" id="recipeInputCalories" type="number" placeholder="Calories" @bind-value="recipe.Information.Calories" />
+                        <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Calories</p>
+                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputCalories" type="number" placeholder="Calories" @bind-value="recipe.Information.Calories" />
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
-                        <p class="text-bgcolor m-0">Proteins</p>
-                        <input class="w-95p" id="recipeInputProteins" type="number" placeholder="proteins" @bind-value="recipe.Information.Proteins" />
+                        <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Proteins</p>
+                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputProteins" type="number" placeholder="proteins" @bind-value="recipe.Information.Proteins" />
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
-                        <p class="text-bgcolor m-0">Fats</p>
-                        <input class="w-95p" id="recipeInputFats" type="number" placeholder="fats" @bind-value="recipe.Information.Fats" />
+                        <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Fats</p>
+                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputFats" type="number" placeholder="fats" @bind-value="recipe.Information.Fats" />
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
-                        <p class="text-bgcolor m-0">Carbohydrates</p>
-                        <input class="w-95p" id="recipeInputCarbohydrates" type="number" placeholder="carbohydrates" @bind-value="recipe.Information.Carbohydrates" />
+                        <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Carbohydrates</p>
+                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputCarbohydrates" type="number" placeholder="carbohydrates" @bind-value="recipe.Information.Carbohydrates" />
                     </div>
-                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh h-5p w-33_3p justify-evenly align-center">
-                        <p class="text-bgcolor m-0">Is Vegan</p>
+                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh pt-1_5vh pb-1_5vh h-2_5p w-33_3p justify-evenly align-center">
+                        <p class="text-bgcolor fontSize-1_75vh m-0">Is Vegan</p>
                         <input id="recipeInputIsVegan" type="checkbox" placeholder="Vegan" @bind="recipe.Information.IsVegan" />
                     </div>
-                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh h-5p w-33_3p justify-evenly align-center">
-                        <p class="text-bgcolor m-0">Contains Pig</p>
+                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh pt-1_5vh pb-1_5vh h-2_5p w-33_3p justify-evenly align-center">
+                        <p class="text-bgcolor fontSize-1_75vh m-0">Contains Pig</p>
                         <input id="recipeInputContainsPig" type="checkbox" placeholder="ContainsPig" @bind="recipe.Information.ContainsPig" />
                     </div>
                 </div>
@@ -61,9 +63,9 @@
                     @for (int i = 0; i < recipe.Ingredients.Count; i++)
                     {
                         int loopi = i;
-                        <div class="flex-row ml-1vw mt-2_25vh h-5vh w-75p justify-center align-center">
-                            <input id="IngredientInput@(loopi + 1)" type="text" placeholder="Ingredient @(loopi + 1)" @bind-value="recipe.Ingredients[loopi]"/>
-                            <span @onclick="() => { DeleteIngredient(loopi); }" class="material-symbols-outlined noSelect text-bgcolor cursor-pointer">delete</span>
+                        <div class="flex-row ml-2vw mt-2_25vh h-5vh w-75p justify-center align-center">
+                            <input class="w-60p borderRad-1vh bg-bgDefaultAlt h-2vh pr-1_5vw pt-1vh pb-1vh pl-0_25vw inset-black-0_5vh border-none text-bgcolor alignText-start" id="IngredientInput@(loopi + 1)" type="text" placeholder="Ingredient @(loopi + 1)" @bind-value="recipe.Ingredients[loopi]" />
+                            <span @onclick="() => { DeleteIngredient(loopi); }" style="transform: translateX(-1.5vw);" class="material-symbols-outlined noSelect text-darkred cursor-pointer">delete</span>
                         </div>
                     }
                 </div>
@@ -78,7 +80,7 @@
                     {
                         int loopi = i;
                         <div class="flex-row ml-1vw mt-2_25vh h-5vh w-75p justify-center align-center">
-                            <input class="w-75p" id="InstructionInput@(loopi + 1)" type="text" placeholder="Instruction @(loopi + 1)" @bind-value="recipe.Steps[loopi]"/>
+                            <input class="w-75p" id="InstructionInput@(loopi + 1)" type="text" placeholder="Instruction @(loopi + 1)" @bind-value="recipe.Steps[loopi]" />
                             <span @onclick="() => { DeleteInstruction(loopi); }" class="material-symbols-outlined noSelect text-bgcolor cursor-pointer">delete</span>
                         </div>
                     }
@@ -92,7 +94,6 @@
     </div>
 </div>
 
-
 @code {
     /// <summary>
     /// <para>Max Ingredients allowed to add.</para>
@@ -105,8 +106,42 @@
     /// </summary>
     [Parameter]
     public bool IsOpen { get; set; } = false;
+    /// <summary>
+    /// <para>Max Instructions allowed to add.</para>
+    /// <para>-1 means infinite Instructions allowed.</para>
+    /// </summary>
+    [Parameter]
+    public int MaxInstructions { get; set; } = -1;
 
     public Recipe recipe = new Recipe();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (globalVarHandler.DebugEnabled)
+            {
+                var recipes = await storageHandler.RetrieveValueAsync();
+                foreach (Recipe _recipe in recipes)
+                {
+                    Console.WriteLine($"Name: {_recipe.Information.Name}");
+                    Console.WriteLine($"Description: {_recipe.Information.Description}");
+                    Console.WriteLine($"Calories: {_recipe.Information.Calories}{_recipe.Units.InformationUnits.Calories}");
+                    Console.WriteLine($"Fats: {_recipe.Information.Fats}{_recipe.Units.InformationUnits.Fats}");
+                    Console.WriteLine($"Proteins: {_recipe.Information.Proteins}{_recipe.Units.InformationUnits.Proteins}");
+                    Console.WriteLine($"Carbohydrates: {_recipe.Information.Carbohydrates}{_recipe.Units.InformationUnits.Carbohydrates}");
+                    Console.WriteLine($"IsVegan: {_recipe.Information.IsVegan}");
+                    Console.WriteLine($"ContainsPig: {_recipe.Information.ContainsPig}");
+                    Console.WriteLine("\n---------------------------------------\n");
+                }
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                await AddIngredientClicked();
+                await AddInstructionClicked();
+            }
+        }
+    }
 
     public void ToggleCreationForm()
     {
@@ -116,18 +151,11 @@
 
     public async Task AddIngredientClicked()
     {
-        Console.WriteLine((await storageHandler.RetrieveValueAsync())[0].Information.Description);
-        if (MaxIngredients == -1)
+        if (MaxIngredients == -1 || recipe.Ingredients.Count < MaxIngredients)
         {
             recipe.Ingredients.Add("");
         }
-        else
-        {
-            if (recipe.Ingredients.Count < MaxIngredients)
-            {
-                recipe.Ingredients.Add("");
-            }
-        }
+
         StateHasChanged();
     }
 
@@ -137,9 +165,12 @@
         StateHasChanged();
     }
 
-    public void AddInstructionClicked()
+    public async Task AddInstructionClicked()
     {
-        recipe.Steps.Add("");
+        if (MaxInstructions == -1 || recipe.Steps.Count < MaxInstructions)
+        {
+            recipe.Steps.Add("");
+        }
         StateHasChanged();
     }
 
@@ -151,9 +182,22 @@
 
     public async Task CreateRecipe()
     {
-        await storageHandler.AddRecipe(recipe);
-        recipe = new Recipe();
-        NavMan.NavigateTo(NavMan.Uri);
-        StateHasChanged();
+        bool userConfirmaton = await JsRuntime.InvokeAsync<bool>("confirm",
+            $"are you sure you want to add \"{recipe.Information.Name}\"? " +
+            $"\nOther Info:" +
+            $"\n-Description: {recipe.Information.Description}," +
+            $"\n-Calories: {recipe.Information.Calories}{recipe.Units.InformationUnits.Calories}," +
+            $"\n-Fats: {recipe.Information.Fats}{recipe.Units.InformationUnits.Fats}," +
+            $"\n-Proteins: {recipe.Information.Proteins}{recipe.Units.InformationUnits.Proteins}," +
+            $"\n-Carbohydrates: {recipe.Information.Carbohydrates}{recipe.Units.InformationUnits.Carbohydrates}," +
+            $"\nSteps: {recipe.Steps.Count}," +
+            $"\nIngredients: {recipe.Ingredients.Count}.");
+        if (userConfirmaton)
+        {
+            await storageHandler.AddRecipe(recipe);
+            recipe = new Recipe();
+            NavMan.NavigateTo(NavMan.Uri);
+            StateHasChanged();
+        }
     }
 }
