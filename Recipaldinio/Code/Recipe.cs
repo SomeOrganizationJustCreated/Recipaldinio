@@ -2,6 +2,7 @@
 {
     public class Recipe
     {
+        public string? Image64 { get; set; } = null;
         public RecipeUnits Units { get; set; } = new RecipeUnits();
         public List<string> Ingredients { get; set; } = new();
         public RecipeInformation Information { get; set; } = new RecipeInformation();

@@ -20,30 +20,48 @@ namespace Recipaldinio.Code
 
         public async Task StoreValueAsync(List<Recipe> recipes)
         {
-            // Serialize the list of recipes to JSON
-            RecipeList rspList = new RecipeList();
-            rspList.recipelist = recipes;
-            string serializedRecipes = JsonConvert.SerializeObject(rspList);
+            for (int i = 0; i < recipes.Count; i++)
+            {
+                string serializedRecipe = JsonConvert.SerializeObject(recipes[i]);
 
-            // Store the JSON string in protected storage
-            await _protectedLocalStorage.SetAsync(_storageKey, serializedRecipes);
+                // Store the JSON string in protected storage
+                await _protectedLocalStorage.SetAsync(_storageKey + "-" + i, serializedRecipe);
+            }
         }
 
         public async Task<List<Recipe>> RetrieveValueAsync()
         {
-            // Retrieve the JSON string from protected storage
-            string serializedRecipes = (await _protectedLocalStorage.GetAsync<string>(_storageKey)).Value;
-
-            if (string.IsNullOrEmpty(serializedRecipes))
+            string? deserializedstringtocheckfornull = "";
+            List<Recipe> reclist = new();
+            int somei = 0;
+            while (deserializedstringtocheckfornull != null)
             {
-                // Return an empty list if no data is found in storage
-                return new List<Recipe>();
+                try
+                {
+                    // Retrieve the JSON string from protected storage
+                    string serializedRecipes =
+                        (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + somei)).Value;
+
+                    if (string.IsNullOrEmpty(serializedRecipes))
+                    {
+                        // Return an empty list if no data is found in storage
+                        deserializedstringtocheckfornull = null;
+                    }
+
+                    //// Deserialize the JSON string back to a list of recipes
+                    Recipe rec = JsonConvert.DeserializeObject<Recipe>(serializedRecipes);
+
+                    reclist.Add(rec);
+
+                    somei++;
+                }
+                catch
+                {
+                    deserializedstringtocheckfornull = null;
+                }
             }
 
-            //// Deserialize the JSON string back to a list of recipes
-            //List<Recipe> recipes = JsonConvert.DeserializeObject<List<Recipe>>(serializedRecipes);
-            RecipeList ret = JsonConvert.DeserializeObject<RecipeList>(serializedRecipes);
-            return ret.recipelist;
+            return reclist;
         }
 
         public async Task AddRecipe(Recipe recipe)
@@ -55,9 +73,5 @@ namespace Recipaldinio.Code
             //save new list to browser storage
             await StoreValueAsync(retrievedList);
         }
-    }
-    public class RecipeList
-    {
-        public List<Recipe> recipelist { get; set; }
     }
 }
