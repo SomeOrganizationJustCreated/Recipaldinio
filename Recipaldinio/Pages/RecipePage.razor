@@ -17,23 +17,54 @@
         {
             var loopi = i;
             //make this list work like it's supposed to please.
-            <div class="flex-column w-33_3p justify-center align-center">
-                <div class="noSelect imageeffet borderRad-6vh">
-                    <img class="borderRad-6vh" alt="Some Image" src="Images/Spaghetti.jpg" />
+            <div class="flex-column w-33_3p justify-center align-center" draggable="true">
+                <div class="noSelect cursor-pointer imageeffet borderRad-6vh" @onclick="() => { ClickedForMoreInformation = true; ClickedRecipe = Recipes[loopi]; }">
+                    <img class="borderRad-6vh cursor-pointer" draggable="false" alt="Some Image"  src="Images/Spaghetti.jpg" />
                 </div>
-                <p class="text w-65p alignText-center">@(loopi). Recipes[loopi].Information.Name</p>
+                <p class="text cursor-pointer w-65p alignText-center">@(loopi + 1). @(Recipes[loopi].Information.Name)</p>
             </div>
         }
-        <div class="flex-row justify-center align-center w-100p">
-            <button class="morebutton align-center justifySelf-center mt-3vh w-12_5vw mb-1_5vh borderRad-6vh fontfam-merriweather" @onclick="ShowMore">View more recipes</button>
-        </div>
+        @if (Recipes.Count > ShowItems)
+        {
+            <div class="flex-row justify-center align-center w-100p">
+                <button class="morebutton align-center justifySelf-center mt-3vh w-12_5vw mb-1_5vh borderRad-6vh fontfam-merriweather" @onclick="ShowMore">View more recipes</button>
+            </div>
+        }
     </div>
 </section>
+
+@if (ClickedForMoreInformation == true)
+{
+    <div class="w-100vw h-100vh positionfixed flex-row justify-center align-center">
+        <div class="recipemoreinfo">
+            <span @onclick="() => { ClickedForMoreInformation = false; }" class="material-symbols-outlined">close</span>
+            <div>
+                <p class="">@(ClickedRecipe.Information.Name)</p>
+                <p class="">@(ClickedRecipe.Information.Description)</p>
+                <p class="">@(ClickedRecipe.Information.Calories)</p>
+                <p class="">@(ClickedRecipe.Information.Proteins)</p>
+                <p class="">@(ClickedRecipe.Information.Carbohydrates)</p>
+            </div>
+            <div>
+                @for (int i = 0; i < ClickedRecipe.Steps.Count; i++)
+                {
+                    var loopi = i;
+                    <p>Step @loopi: @ClickedRecipe.Steps[loopi]</p>
+                }
+            </div>
+            <div>
+                <p class="">@(ClickedRecipe.Information.Name)</p>
+            </div>
+        </div>
+    </div>
+}
 
 
 @code {
     public int ShowItems = 0;
     public List<Recipe> Recipes = new();
+    public bool ClickedForMoreInformation = false;
+    public Recipe ClickedRecipe = null;
 
     void ShowMore()
     {
@@ -42,6 +73,7 @@
         {
             ShowItems = Recipes.Count;
         }
+        StateHasChanged();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -196,7 +196,7 @@
         {
             await storageHandler.AddRecipe(recipe);
             recipe = new Recipe();
-            NavMan.NavigateTo(NavMan.Uri);
+            NavMan.NavigateTo(NavMan.Uri, true);
             StateHasChanged();
         }
     }
