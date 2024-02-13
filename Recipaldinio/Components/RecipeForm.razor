@@ -128,14 +128,14 @@
         {
             var memoryStream = new MemoryStream();
             IBrowserFile file = await IFCEA.File.RequestImageFileAsync("image/jpg", 384, 384);
-            if (file.Size > 16000)
+            if (file.Size > 512000)
             {
                 await JsRuntime.InvokeVoidAsync("alert", "File size to large!");
                 return;
             }
             try
             {
-                await file.OpenReadStream(100000).CopyToAsync(memoryStream);
+                await file.OpenReadStream(512000).CopyToAsync(memoryStream);
             }
             catch
             {

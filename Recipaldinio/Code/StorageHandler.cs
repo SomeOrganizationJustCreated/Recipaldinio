@@ -76,14 +76,16 @@ namespace Recipaldinio.Code
                     {
                         try
                         {
-                            string serializedString = (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + somei + "_b64-" + somej)).Value.ToString();
+                            string? serializedString = (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + somei + "_b64-" + somej)).Value;
 
                             if (string.IsNullOrEmpty(serializedString))
                             {
                                 anotherdeserializedstringtocheckfornull = null;
                             }
-
-                            rec.Image64 += serializedString.Replace("\"", "");
+                            else
+                            {
+                                rec.Image64 += serializedString.Replace("\"", "");
+                            }
 
                             somej++;
                         }
