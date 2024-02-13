@@ -52,6 +52,7 @@ body {
     background-color: #e1e0ca;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 *:focus
@@ -80,6 +81,88 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.Socials {
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+.Socials-left
+{
+    margin-left: -5vw;
+    align-content: end;
+    align-items: end;
+    border-top-right-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    overflow: hidden;
+}
+.Socials-right
+{
+    margin-right: -5vw;
+    align-items: start;
+    align-content: start;
+    border-top-left-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+    overflow: hidden;
+}
+.Socials span
+{
+    transition: 0.3s ease all;
+    pointer-events: auto;
+    background-color: rgba(255, 255, 255, 0);
+    width: 33.3%;
+}
+.Socials span::after{
+    transition: 0.3s ease all 0s;
+    content: "";
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+.Socials span:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    width: 100%;
+}
+.Socials span i {
+    transition: 0.3s ease all 0s;
+    opacity: 1;
+}
+.Socials span:hover::after {
+    transition: 0.3s ease all 0s;
+    content: var(--SocialsContent);
+    opacity: 1;
+}
+div.Socials:hover {
+    margin: 0;
+}
+div.Socials:hover span {
+    width: 100%;
+}
+div.Socials:hover span i {
+    color: blue;
+}
+div.Socials-left:hover span:not(:hover) {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+div.Socials-left:hover span:not(:hover) i
+{
+    transition: 0.3s ease all 0s;
+    opacity: 0.25;
+}
+div.Socials-left:hover span:not(:hover)::after{
+    opacity: 0.25;
+    content: var(--SocialsContent);
+}
+div.Socials-right:hover span:not(:hover){
+    background-color: rgba(0, 0, 0, 0.25);
+}
+div.Socials-right:hover span:not(:hover) i
+{
+    transition: 0.3s ease all 0s;
+    opacity: 0.25;
+}
+div.Socials-right:hover span:not(:hover)::after{
+    opacity: 0.25;
+    content: var(--SocialsContent);
 }
 
 .BannerSeperator {
