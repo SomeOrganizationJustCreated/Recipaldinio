@@ -261,6 +261,9 @@ input.navbarinput:focus {
     top: 0;
     left: 0;
 }
+
+/*button Animation*/
+
 .recipeSection button {
     transition-duration: 0.25s;
     transition-property: all;
@@ -355,3 +358,67 @@ input.navbarinput:focus {
     color: var(--DefaultBackgroundColor);
     font-family: 'Archivo Black', sans-serif;
 }
+.morebutton
+{
+    cursor: pointer;
+    font-size: 110%;
+    background-color: var(--DefaultBackgroundColor);
+    color: var(--DefaultBackgroundColorAlt);
+    transition-duration: 0.25s;
+    transition-property: all;
+    transition-timing-function: ease;
+    border-style: solid;
+    border-color: var(--DefaultBackgroundColor);
+    font-weight: bold;
+    box-shadow: 0 0.2vh 0.1vh 0.2vh #2b3052;
+    text-shadow: 0 0 0 var(--DefaultBackgroundColor);
+    height: 6vh;
+    transform: translateY(-1vh);
+}
+    .morebutton:hover
+    {
+        text-shadow: 0 0 0.15vh var(--DefaultBackgroundColor);
+    }
+
+    .morebutton:active
+    {
+        box-shadow: 0 0 0 0 transparent;
+        text-shadow: 0 0 0 var(--DefaultBackgroundColor);
+        transform: translateY(0);
+    }
+
+/*More Information AboutRecipe*/
+
+.positionfixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.15);
+}
+.recipemoreinfo
+{
+    user-select: none;
+    margin-top: 6vh;
+    width: 50vw;
+    height: 80vh;
+    background-color: var(--DefaultBackgroundColor);
+    border-radius: 30px;
+    box-shadow: 0, 0, 0, 2px inset;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px #e1e0ca;
+}
+    .recipemoreinfo span
+    {
+        cursor: pointer;
+        margin-top: 1.5vh;
+        margin-left: 48vw;
+        color: white;
+        transition: 0.2s;
+    }
+
+        .recipemoreinfo span:hover
+        {
+            font-size: 150%;
+            color: #ed6363;
+            transform: scale(1.3);
+            transition: 0.3s;
+        }
