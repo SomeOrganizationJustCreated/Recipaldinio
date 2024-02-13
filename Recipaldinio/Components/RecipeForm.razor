@@ -7,7 +7,6 @@
 @inject IJSRuntime JsRuntime;
 @inject GlobalVarHandler globalVarHandler;
 
-
 <div class="w-100p bg-bgDefault RecipeForm flex-column justify-center align-center"
      style='height: "auto" : "10vh"); transition-duration: 1.5s'>
     <button @onclick="ToggleCreationForm" class="RecipeForm-OpClBut bg-transparent border-none flex-row align-center h-5vh">
@@ -121,6 +120,12 @@
 
     public Recipe recipe = new Recipe();
 
+    /// <summary>
+    /// <para>Loads the <see cref="IBrowserFile"/> from <see cref="InputFileChangeEventArgs"/> and converts it to a base64 string</para>
+    /// <para>The base64 string is saved to recipe</para>
+    /// </summary>
+    /// <param name="IFCEA"><see cref="InputFileChangeEventArgs"/> with the <see cref="IBrowserFile"/></param>
+    /// <returns></returns>
     public async Task LoadFile(InputFileChangeEventArgs IFCEA)
     {
         Console.WriteLine(IFCEA.File.ContentType);
@@ -181,12 +186,19 @@
         }
     }
 
+    /// <summary>
+    /// <para>Opens/Closes Creation Form.</para>
+    /// </summary>
     public void ToggleCreationForm()
     {
         IsOpen = !IsOpen;
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Adds an Ingredient to the list of Ingredients.</para>
+    /// </summary>
+    /// <returns></returns>
     public async Task AddIngredientClicked()
     {
         if (MaxIngredients == -1 || recipe.Ingredients.Count < MaxIngredients)
@@ -197,12 +209,20 @@
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Deletes an Ingredient from the list of Ingredients.</para>
+    /// </summary>
+    /// <param name="index"></param>
     public void DeleteIngredient(int index)
     {
         recipe.Ingredients.RemoveAt(index);
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Adds an Instruction to the list of Instructions.</para>
+    /// </summary>
+    /// <returns></returns>
     public async Task AddInstructionClicked()
     {
         if (MaxInstructions == -1 || recipe.Steps.Count < MaxInstructions)
@@ -212,12 +232,20 @@
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Deletes an Instruction from the list of Instructions.</para>
+    /// </summary>
+    /// <param name="index"></param>
     public void DeleteInstruction(int index)
     {
         recipe.Steps.RemoveAt(index);
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Creates a new <see cref="Recipe"/> by calling the <see cref="storageHandler"/>.</para>
+    /// </summary>
+    /// <returns></returns>
     public async Task CreateRecipe()
     {
         bool userConfirmaton = await JsRuntime.InvokeAsync<bool>("confirm",

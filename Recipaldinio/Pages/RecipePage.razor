@@ -19,7 +19,7 @@
             //make this list work like it's supposed to please.
             <div class="flex-column w-33_3p justify-center align-center" draggable="true">
                 <div class="noSelect cursor-pointer imageeffet borderRad-6vh" @onclick="() => { ClickedForMoreInformation = true; ClickedRecipe = Recipes[loopi]; }">
-                    <img class="borderRad-6vh cursor-pointer" draggable="false" alt="Some Image"  src="Images/Spaghetti.jpg" />
+                    <img class="borderRad-6vh cursor-pointer" draggable="false" alt="Some Image" src="data:image/jpeg;base64, @(Recipes[loopi].Image64)" />
                 </div>
                 <p class="text cursor-pointer w-65p alignText-center">@(loopi + 1). @(Recipes[loopi].Information.Name)</p>
             </div>
