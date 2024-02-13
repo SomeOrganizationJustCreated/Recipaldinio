@@ -22,12 +22,27 @@ namespace Recipaldinio.Code
         {
             for (int i = 0; i < recipes.Count; i++)
             {
+                string b64str = recipes[i].Image64;
+                recipes[i].Image64 = "";
                 string serializedRecipe = JsonConvert.SerializeObject(recipes[i]);
 
                 // Store the JSON string in protected storage
                 await _protectedLocalStorage.SetAsync(_storageKey + "-" + i, serializedRecipe);
+
+                List<string> b64strlist = SplitString(b64str, 5000).ToList();
+                for (int j = 0; j < b64strlist.Count; j++)
+                {
+                    await _protectedLocalStorage.SetAsync(_storageKey + "-" + i + "_b64-" + j, b64strlist[j]);
+                }
             }
         }
+
+        static IEnumerable<string> SplitString(string str, int maxChunkSize)
+        {
+            for (int i = 0; i < str.Length; i += maxChunkSize)
+                yield return str.Substring(i, Math.Min(maxChunkSize, str.Length - i));
+        }
+
 
         public async Task<List<Recipe>> RetrieveValueAsync()
         {
@@ -50,6 +65,35 @@ namespace Recipaldinio.Code
 
                     //// Deserialize the JSON string back to a list of recipes
                     Recipe rec = JsonConvert.DeserializeObject<Recipe>(serializedRecipes);
+                    Console.WriteLine(serializedRecipes);
+
+                    string? anotherdeserializedstringtocheckfornull = "";
+                    int somej = 0;
+
+                    rec.Image64 = "";
+
+                    while (anotherdeserializedstringtocheckfornull != null)
+                    {
+                        try
+                        {
+                            string? serializedString = (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + somei + "_b64-" + somej)).Value;
+
+                            if (string.IsNullOrEmpty(serializedString))
+                            {
+                                anotherdeserializedstringtocheckfornull = null;
+                            }
+                            else
+                            {
+                                rec.Image64 += serializedString.Replace("\"", "");
+                            }
+
+                            somej++;
+                        }
+                        catch
+                        {
+                            anotherdeserializedstringtocheckfornull = null;
+                        }
+                    }
 
                     reclist.Add(rec);
 

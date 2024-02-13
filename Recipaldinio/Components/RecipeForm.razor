@@ -1,6 +1,7 @@
 ﻿@using Recipaldinio.Code
 @using Microsoft.AspNetCore.Components.Forms
 @using System.Net
+@using System.Reflection.Metadata
 @inject StorageHandler storageHandler;
 @inject NavigationManager NavMan;
 @inject IJSRuntime JsRuntime;
@@ -127,14 +128,14 @@
         {
             var memoryStream = new MemoryStream();
             IBrowserFile file = await IFCEA.File.RequestImageFileAsync("image/jpg", 384, 384);
-            if (file.Size > 16000)
+            if (file.Size > 512000)
             {
                 await JsRuntime.InvokeVoidAsync("alert", "File size to large!");
                 return;
             }
             try
             {
-                await file.OpenReadStream(100000).CopyToAsync(memoryStream);
+                await file.OpenReadStream(512000).CopyToAsync(memoryStream);
             }
             catch
             {
@@ -143,7 +144,6 @@
             }
             byte[] bar = memoryStream.ToArray();
             string string64 = Convert.ToBase64String(bar);
-            Console.WriteLine(string64);
             recipe.Image64 = string64;
         }
         else
