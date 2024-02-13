@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Code\**" />
-    <Content Remove="Code\**" />
-    <EmbeddedResource Remove="Code\**" />
-    <None Remove="Code\**" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

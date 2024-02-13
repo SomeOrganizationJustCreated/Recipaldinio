@@ -1,0 +1,105 @@
+﻿@page "/search";
+@page "/search/{SearchValue}";
+@using Recipaldinio.Components;
+@using Recipaldinio.Code;
+@inject StorageHandler storageHandler;
+
+<Navbar></Navbar>
+
+<section class="flex-column mt-2_5vh align-center Section">
+    <div class="w-80p flex-row">
+        <h1 class="fontfam-playfair RecipeList-Header dropShadow-Soft_gray-0_1vh fontSize-5vh">Recipes for "@(SearchValue)"</h1>
+    </div>
+    <div class="w-100p flex-row" style="flex-wrap: wrap;">
+        @for (int i = 0; i < Recipes.Count; i++)
+        {
+            int loopi = i;
+            <div class="flex-column w-33_3p justify-center align-center">
+                <div class="noSelect imageeffet borderRad-6vh">
+                    <img class="borderRad-6vh" src="Images/Spaghetti.jpg" />
+                </div>
+                <p class="text w-65p alignText-center">@(loopi + 1). @(Recipes[loopi].Information.Name)</p>
+            </div>
+        }
+    </div>
+</section>
+
+
+@code {
+    [Parameter]
+    public string SearchValue { get; set; }
+
+    public List<Recipe> Recipes = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstrender)
+    {
+        if (firstrender)
+        {
+            List<Recipe> _recipes = await storageHandler.RetrieveValueAsync();
+            Console.WriteLine("Started Search...");
+            foreach (Recipe rec in _recipes)
+            {
+                if (GetDamerauLevenshteinDistance(rec.Information.Name, SearchValue) < 3)
+                {
+                    Recipes.Add(rec);
+                }
+            }
+            StateHasChanged();
+            Console.WriteLine("finished Search!");
+        }
+    }
+
+    public int GetDamerauLevenshteinDistance(string s, string t)
+    {
+        if (string.IsNullOrEmpty(s))
+        {
+            throw new ArgumentNullException(s, "String Cannot Be Null Or Empty");
+        }
+
+        if (string.IsNullOrEmpty(t))
+        {
+            throw new ArgumentNullException(t, "String Cannot Be Null Or Empty");
+        }
+
+        int n = s.Length;
+        int m = t.Length;
+
+        if (n == 0)
+        {
+            return m;
+        }
+
+        if (m == 0)
+        {
+            return n;
+        }
+
+        int[] p = new int[n + 1];
+        int[] d = new int[n + 1];
+
+        int i;
+        int j;
+
+        for (i = 0; i <= n; i++)
+        {
+            p[i] = i;
+        }
+
+        for (j = 1; j <= m; j++)
+        {
+            char tJ = t[j - 1];
+            d[0] = j;
+
+            for (i = 1; i <= n; i++)
+            {
+                int cost = s[i - 1] == tJ ? 0 : 1;
+                d[i] = Math.Min(Math.Min(d[i - 1] + 1, p[i] + 1), p[i - 1] + cost);
+            }
+            int[] dPlaceholder = p;
+            p = d;
+            d = dPlaceholder;
+        }
+
+        return p[n];
+    }
+}
