@@ -593,11 +593,5 @@ input.navbarinput:focus {
     color: white;
 }
 .deleteButtonIcon{
-    transition: 0.5s all ease;
-    margin-left: 5vw;
+    margin-left: 4vw;
 }
-    .deletebutton:hover .deleteButtonIcon
-    {
-        transition: 0.5s all ease;
-        margin-left: 0;
-    }

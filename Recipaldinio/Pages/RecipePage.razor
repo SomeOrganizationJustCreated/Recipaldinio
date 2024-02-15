@@ -71,7 +71,8 @@
                     </div>
                 </div>
                 <div class="flex-row justify-end mb-1vh">
-                    <button class="deletebutton mr-2vw w-15p borderRad-0_5vh align-center"><span class="deletebuttontext align-center alignText-center h-5vh">Delete</span><span class="material-symbols-outlined deleteButtonIcon text-white flex-row">delete</span></button>
+                    <button @onclick="async () => { await DeleteButtonClicked(); }" class="deletebutton mr-2vw w-12_5p borderRad-0_5vh align-center cursor-pointer"><span class="deletebuttontext align-center alignText-center">Delete</span>
+                        <span class="material-symbols-outlined deleteButtonIcon text-white flex-row">delete</span></button>
                 </div>
             </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                      
         </div>
@@ -84,6 +85,13 @@
     public List<Recipe> Recipes = new();
     public bool ClickedForMoreInformation = false;
     public Recipe ClickedRecipe = null;
+
+    public async Task DeleteButtonClicked()
+    {
+        await storageHandler.DeleteRecipe(ClickedRecipe);
+        ClickedForMoreInformation = false;
+        StateHasChanged();
+    }
 
     void ShowMore()
     {
