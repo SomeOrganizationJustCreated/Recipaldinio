@@ -1,6 +1,8 @@
 ﻿@page "/recipepage"
 @using Recipaldinio.Code;
 @inject StorageHandler storageHandler;
+@inject NavigationManager NavMan;
+@inject IJSRuntime JsRuntime;
 
 <Navbar></Navbar>
 <br/>
@@ -88,9 +90,14 @@
 
     public async Task DeleteButtonClicked()
     {
-        await storageHandler.DeleteRecipe(ClickedRecipe);
-        ClickedForMoreInformation = false;
-        StateHasChanged();
+        bool hasConfirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete?");
+        if (hasConfirmed)
+        {
+            await storageHandler.DeleteRecipe(ClickedRecipe);
+            ClickedForMoreInformation = false;
+            StateHasChanged();
+            NavMan.NavigateTo(NavMan.Uri, true);
+        }
     }
 
     void ShowMore()
