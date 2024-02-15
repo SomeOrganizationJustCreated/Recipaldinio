@@ -90,8 +90,6 @@ body {
 }
 .Socials-left
 {
-    position: fixed;
-    left: 0;
     margin-left: -5vw;
     align-content: end;
     align-items: end;
@@ -104,8 +102,6 @@ div.Socials-left:hover span i {
 }
 .Socials-right
 {
-    position: fixed;
-    right: 0;
     margin-right: -5vw;
     align-items: start;
     align-content: start;
