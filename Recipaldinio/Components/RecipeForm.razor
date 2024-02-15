@@ -7,7 +7,6 @@
 @inject IJSRuntime JsRuntime;
 @inject GlobalVarHandler globalVarHandler;
 
-
 <div class="w-100p bg-bgDefault RecipeForm flex-column justify-center align-center"
      style='height: "auto" : "10vh"); transition-duration: 1.5s'>
     <button @onclick="ToggleCreationForm" class="RecipeForm-OpClBut bg-transparent border-none flex-row align-center h-5vh">
@@ -36,19 +35,19 @@
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
                         <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Calories</p>
-                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputCalories" type="number" placeholder="Calories" @bind-value="recipe.Information.Calories"/>
+                        <input @onkeydown="args => { if (recipe.Information.Calories < 0) { recipe.Information.Calories = 0; } }" @oninput="args => { try { if (Convert.ToInt32(args.Value) <= 0) { recipe.Information.Calories = 0; args.Value = 0; } }catch{} }" class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputCalories" type="number" min="0" placeholder="Calories" @bind-value="recipe.Information.Calories" />
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
                         <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Proteins</p>
-                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputProteins" type="number" placeholder="proteins" @bind-value="recipe.Information.Proteins"/>
+                        <input @onkeydown="args => { if (recipe.Information.Proteins < 0) { recipe.Information.Proteins = 0; } }" @oninput="args => { try { if (Convert.ToInt32(args.Value) <= 0) { recipe.Information.Proteins = 0; args.Value = 0; } }catch{} }" class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputProteins" type="number" min="0" placeholder="proteins" @bind-value="recipe.Information.Proteins" />
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
                         <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Fats</p>
-                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputFats" type="number" placeholder="fats" @bind-value="recipe.Information.Fats"/>
+                        <input @onkeydown="args => { if (recipe.Information.Fats < 0) { recipe.Information.Fats = 0; } }" @oninput="args => { try { if (Convert.ToInt32(args.Value) <= 0) { recipe.Information.Fats = 0; args.Value = 0; } }catch{} }" class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputFats" type="number" min="0" placeholder="fats" @bind-value="recipe.Information.Fats" />
                     </div>
                     <div class="flex-column mt-2_25vh h-5vh w-33_3p justify-center align-center">
                         <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Carbohydrates</p>
-                        <input class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputCarbohydrates" type="number" placeholder="carbohydrates" @bind-value="recipe.Information.Carbohydrates"/>
+                        <input @onkeydown="args => { if (recipe.Information.Carbohydrates < 0) { recipe.Information.Carbohydrates = 0; } }" @oninput="args => { try { if (Convert.ToInt32(args.Value) <= 0) { recipe.Information.Carbohydrates = 0; args.Value = 0; } }catch{} }" class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputCarbohydrates" type="number" min="0" placeholder="carbohydrates" @bind-value="recipe.Information.Carbohydrates" />
                     </div>
                     <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh pt-1_5vh pb-1_5vh h-2_5p w-33_3p justify-evenly align-center">
                         <p class="text-bgcolor fontSize-1_75vh m-0">Is Vegan</p>
@@ -121,6 +120,12 @@
 
     public Recipe recipe = new Recipe();
 
+    /// <summary>
+    /// <para>Loads the <see cref="IBrowserFile"/> from <see cref="InputFileChangeEventArgs"/> and converts it to a base64 string</para>
+    /// <para>The base64 string is saved to recipe</para>
+    /// </summary>
+    /// <param name="IFCEA"><see cref="InputFileChangeEventArgs"/> with the <see cref="IBrowserFile"/></param>
+    /// <returns></returns>
     public async Task LoadFile(InputFileChangeEventArgs IFCEA)
     {
         Console.WriteLine(IFCEA.File.ContentType);
@@ -181,12 +186,19 @@
         }
     }
 
+    /// <summary>
+    /// <para>Opens/Closes Creation Form.</para>
+    /// </summary>
     public void ToggleCreationForm()
     {
         IsOpen = !IsOpen;
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Adds an Ingredient to the list of Ingredients.</para>
+    /// </summary>
+    /// <returns></returns>
     public async Task AddIngredientClicked()
     {
         if (MaxIngredients == -1 || recipe.Ingredients.Count < MaxIngredients)
@@ -197,12 +209,20 @@
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Deletes an Ingredient from the list of Ingredients.</para>
+    /// </summary>
+    /// <param name="index"></param>
     public void DeleteIngredient(int index)
     {
         recipe.Ingredients.RemoveAt(index);
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Adds an Instruction to the list of Instructions.</para>
+    /// </summary>
+    /// <returns></returns>
     public async Task AddInstructionClicked()
     {
         if (MaxInstructions == -1 || recipe.Steps.Count < MaxInstructions)
@@ -212,12 +232,20 @@
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Deletes an Instruction from the list of Instructions.</para>
+    /// </summary>
+    /// <param name="index"></param>
     public void DeleteInstruction(int index)
     {
         recipe.Steps.RemoveAt(index);
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para>Creates a new <see cref="Recipe"/> by calling the <see cref="storageHandler"/>.</para>
+    /// </summary>
+    /// <returns></returns>
     public async Task CreateRecipe()
     {
         bool userConfirmaton = await JsRuntime.InvokeAsync<bool>("confirm",
@@ -232,6 +260,26 @@
             $"\nIngredients: {recipe.Ingredients.Count}.");
         if (userConfirmaton)
         {
+            for (int i = 0; i < recipe.Steps.Count; i++)
+            {
+                if (string.IsNullOrEmpty(recipe.Steps[i]))
+                {
+                    recipe.Steps.RemoveAt(i);
+                    i--;
+                }
+            }
+            for (int i = 0; i < recipe.Ingredients.Count; i++)
+            {
+                if (string.IsNullOrEmpty(recipe.Ingredients[i]))
+                {
+                    recipe.Ingredients.RemoveAt(i);
+                    i--;
+                }
+            }
+            recipe.Information.Carbohydrates = recipe.Information.Carbohydrates < 0 ? 0 : recipe.Information.Carbohydrates;
+            recipe.Information.Calories = recipe.Information.Calories < 0 ? 0 : recipe.Information.Calories;
+            recipe.Information.Fats = recipe.Information.Fats < 0 ? 0 : recipe.Information.Fats;
+            recipe.Information.Proteins = recipe.Information.Proteins < 0 ? 0 : recipe.Information.Proteins;
             await storageHandler.AddRecipe(recipe);
             recipe = new Recipe();
             NavMan.NavigateTo(NavMan.Uri, true);

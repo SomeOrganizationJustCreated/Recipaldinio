@@ -52,6 +52,7 @@ body {
     background-color: #e1e0ca;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 *:focus
@@ -80,6 +81,146 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.Socials {
+    pointer-events: none;
+    transition: 0.5s ease all;
+    z-index: 10;
+}
+.Socials-left
+{
+    position: fixed;
+    left: 0;
+    margin-left: -5vw;
+    align-content: end;
+    align-items: end;
+    border-top-right-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    overflow: hidden;
+}
+div.Socials-left:hover span i {
+    margin-right: 1vw;
+}
+.Socials-right
+{
+    position: fixed;
+    right: 0;
+    margin-right: -5vw;
+    align-items: start;
+    align-content: start;
+    border-top-left-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+    overflow: hidden;
+}
+div.Socials-right:hover span i {
+    margin-right: 1vw;
+}
+.Socials span
+{
+    transition: 0.5s ease all;
+    pointer-events: auto;
+    background-color: rgba(255, 255, 255, 0);
+    width: 33.3%;
+}
+.Socials-left span::after{
+    transition: 0.5s ease all 0s;
+    width: 0;
+    height: auto;
+    content: var(--SocialsContent);
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+.Socials-right span::after
+{
+    transition: 0.5s ease all 0s;
+    content: var(--SocialsContent);
+    opacity: 0;
+    width: 0;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0);
+}
+.Socials span:hover {
+    transition: 0.5s ease all;
+    background-color: rgba(255, 255, 255, 0.25);
+    width: 100%;
+}
+.Socials span i {
+    transition: 0.5s ease all 0s;
+    margin-right: 0;
+    margin-left: 0;
+    color: var(--DefaultBackgroundColor);
+    opacity: 1;
+}
+.Socials-left span:hover::after {
+    transition: 0.5s ease all 0s;
+    width: auto;
+    height: auto;
+    content: var(--SocialsContent);
+    opacity: 1;
+}
+.Socials-right span:hover::after
+{
+    width: auto;
+    height: auto;
+    transition: 0.2s ease all 0s;
+    content: var(--SocialsContent);
+    opacity: 1;
+}
+div.Socials:hover {
+    transition: 0.5s ease all;
+    margin: 0;
+}
+div.Socials:hover span {
+    transition: 0.5s ease all;
+    width: 100%;
+}
+div.Socials-left:hover span:after
+{
+    width: auto;
+    height: auto;
+}
+div.Socials-right:hover span:after
+{
+    width: auto;
+    height: auto;
+}
+div.Socials:hover span:hover
+{
+    transition: 0.5s ease all;
+    width: 100%;
+    color: var(--SelectedColor);
+}
+div.Socials:hover span:hover i {
+    transition: 0.5s ease all;
+    color: var(--SelectedColor);
+}
+div.Socials-left:hover span:not(:hover) {
+    transition: 0.5s ease all;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+div.Socials-left:hover span:not(:hover) i
+{
+    transition: 0.5s ease all 0s;
+    opacity: 0.25;
+}
+div.Socials-left:hover span:not(:hover)::after{
+    transition: 0.5s ease all;
+    opacity: 0.25;
+    content: var(--SocialsContent);
+}
+div.Socials-right:hover span:not(:hover){
+    transition: 0.5s ease all;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+div.Socials-right:hover span:not(:hover) i
+{
+    transition: 0.5s ease all 0s;
+    opacity: 0.25;
+}
+div.Socials-right:hover span:not(:hover):after{
+    opacity: 0.25;
+    content: var(--SocialsContent);
 }
 
 .BannerSeperator {
