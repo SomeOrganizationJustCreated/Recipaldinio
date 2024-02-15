@@ -188,6 +188,10 @@
 .text-midcolor{
     color: var(--DefaultMidgroundColor);
 }
+.text-lightyellow
+{
+    color: #eeba45;
+}
 .text-black {
     color: black;
 }
@@ -197,6 +201,12 @@
 }
 .text-darkred {
     color: darkred;
+}
+
+/*--------text-style-------*/
+.text-nostyle
+{
+    font-style:normal;
 }
 
 /*----flex----*/
@@ -654,6 +664,7 @@
 /*---Padding-top---*/
 .pt-10vh   { padding-top: 10vh; }
 .pt-10vw   { padding-top: 10vw; }
+.pt-7_5vh    { padding-top: 7.5vh;}
 .pt-5vh    { padding-top: 5vh; }
 .pt-5vw    { padding-top: 5vw; }
 .pt-4_75vh { padding-top: 4.75vh; }
@@ -738,6 +749,8 @@
 .pb-0_25vw { padding-bottom: 0.25vw; }
 .pb-0 { padding-bottom: 0; }
 /*---padding-left---*/
+.pl-8vw    { padding-left: 8vw; }
+.pl-6vw  { padding-left: 6vw; }
 .pl-5vh    { padding-left: 5vh; }
 .pl-5vw    { padding-left: 5vw; }
 .pl-4_75vh { padding-left: 4.75vh; }
