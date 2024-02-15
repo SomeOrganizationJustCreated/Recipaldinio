@@ -26,8 +26,9 @@
 
 
 @code {
+
     [Parameter]
-    public string SearchValue { get; set; }
+    public string SearchValue { get; set; } = "";
 
     public List<Recipe> Recipes = new();
 
@@ -37,39 +38,42 @@
         {
             List<Recipe> _recipes = await storageHandler.RetrieveValueAsync();
             Console.WriteLine("Started Search...");
-            foreach (Recipe rec in _recipes)
+            if (!string.IsNullOrEmpty(SearchValue))
             {
-                if (rec.Information.Name.ToLower().Contains(SearchValue.ToLower()))
+                foreach (Recipe rec in _recipes)
                 {
-                    if (GetDamerauLevenshteinDistance(rec.Information.Name.ToLower(), SearchValue.ToLower()) < 8)
+                    if (rec.Information.Name.ToLower().Contains(SearchValue.ToLower()))
                     {
-                        Recipes.Add(rec);
+                        if (GetDamerauLevenshteinDistance(rec.Information.Name.ToLower(), SearchValue.ToLower()) < 8)
+                        {
+                            Recipes.Add(rec);
+                        }
+                    }
+                    else
+                    {
+                        if (GetDamerauLevenshteinDistance(rec.Information.Name.ToLower(), SearchValue.ToLower()) < 4)
+                        {
+                            Recipes.Add(rec);
+                        }
                     }
                 }
-                else
+                Console.WriteLine("finished Search!");
+                Console.WriteLine("started sorting...");
+                for (int i = 0; i < Recipes.Count; i++)
                 {
-                    if (GetDamerauLevenshteinDistance(rec.Information.Name.ToLower(), SearchValue.ToLower()) < 4)
+                    for (int j = 1; j < Recipes.Count; j++)
                     {
-                        Recipes.Add(rec);
+                        if (GetDamerauLevenshteinDistance(Recipes[i].Information.Name.ToLower(), SearchValue.ToLower()) > GetDamerauLevenshteinDistance(Recipes[j].Information.Name.ToLower(), SearchValue.ToLower()))
+                        {
+                            Recipe temprec = Recipes[j];
+                            Recipes[j] = Recipes[i];
+                            Recipes[i] = temprec;
+                        }
                     }
                 }
+                Console.WriteLine("finished Sorting!");
+                StateHasChanged();
             }
-            Console.WriteLine("finished Search!");
-            Console.WriteLine("started sorting...");
-            for (int i = 0; i < Recipes.Count; i++)
-            {
-                for (int j = 1; j < Recipes.Count; j++)
-                {
-                    if (GetDamerauLevenshteinDistance(Recipes[i].Information.Name.ToLower(), SearchValue.ToLower()) > GetDamerauLevenshteinDistance(Recipes[j].Information.Name.ToLower(), SearchValue.ToLower()))
-                    {
-                        Recipe temprec = Recipes[j];
-                        Recipes[j] = Recipes[i];
-                        Recipes[i] = temprec;
-                    }
-                }
-            }
-            Console.WriteLine("finished Sorting!");
-            StateHasChanged();
         }
     }
 
