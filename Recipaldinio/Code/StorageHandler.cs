@@ -97,10 +97,13 @@ namespace Recipaldinio.Code
                 // Store the JSON string in protected storage
                 await _protectedLocalStorage.SetAsync(_storageKey + "-" + i, serializedRecipe);
 
-                List<string> b64strlist = SplitString(b64str, 5000).ToList();
-                for (int j = 0; j < b64strlist.Count; j++)
+                if (!string.IsNullOrEmpty(b64str))
                 {
-                    await _protectedLocalStorage.SetAsync(_storageKey + "-" + i + "_b64-" + j, b64strlist[j]);
+                    List<string> b64strlist = SplitString(b64str, 5000).ToList();
+                    for (int j = 0; j < b64strlist.Count; j++)
+                    {
+                        await _protectedLocalStorage.SetAsync(_storageKey + "-" + i + "_b64-" + j, b64strlist[j]);
+                    }
                 }
             }
         }
