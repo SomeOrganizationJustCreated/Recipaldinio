@@ -132,7 +132,7 @@
         if (IFCEA.File.ContentType.Contains("image"))
         {
             var memoryStream = new MemoryStream();
-            IBrowserFile file = await IFCEA.File.RequestImageFileAsync("image/jpg", 384, 384);
+            IBrowserFile file = await IFCEA.File.RequestImageFileAsync("image/jpg", 400, 400);
             if (file.Size > 512000)
             {
                 await JsRuntime.InvokeVoidAsync("alert", "File size to large!");

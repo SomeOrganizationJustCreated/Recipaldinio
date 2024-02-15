@@ -1,0 +1,3 @@
+﻿window.clearLocalStorage = () => {
+    localStorage.clear();
+}
