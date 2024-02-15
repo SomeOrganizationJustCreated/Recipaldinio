@@ -16,7 +16,7 @@
             int loopi = i;
             <div class="flex-column w-33_3p justify-center align-center">
                 <div class="noSelect imageeffet borderRad-6vh">
-                    <img class="borderRad-6vh" src="Images/Spaghetti.jpg" />
+                    <img class="borderRad-6vh" src="data:image/jpeg;base64, @(Recipes[loopi].Image64)" />
                 </div>
                 <p class="text w-65p alignText-center">@(loopi + 1). @(Recipes[loopi].Information.Name)</p>
             </div>
@@ -26,8 +26,9 @@
 
 
 @code {
+
     [Parameter]
-    public string SearchValue { get; set; }
+    public string SearchValue { get; set; } = "";
 
     public List<Recipe> Recipes = new();
 
@@ -37,18 +38,52 @@
         {
             List<Recipe> _recipes = await storageHandler.RetrieveValueAsync();
             Console.WriteLine("Started Search...");
-            foreach (Recipe rec in _recipes)
+            if (!string.IsNullOrEmpty(SearchValue))
             {
-                if (GetDamerauLevenshteinDistance(rec.Information.Name, SearchValue) < 3)
+                foreach (Recipe rec in _recipes)
                 {
-                    Recipes.Add(rec);
+                    if (rec.Information.Name.ToLower().Contains(SearchValue.ToLower()))
+                    {
+                        if (GetDamerauLevenshteinDistance(rec.Information.Name.ToLower(), SearchValue.ToLower()) < 8)
+                        {
+                            Recipes.Add(rec);
+                        }
+                    }
+                    else
+                    {
+                        if (GetDamerauLevenshteinDistance(rec.Information.Name.ToLower(), SearchValue.ToLower()) < 4)
+                        {
+                            Recipes.Add(rec);
+                        }
+                    }
                 }
+                Console.WriteLine("finished Search!");
+                Console.WriteLine("started sorting...");
+                for (int i = 0; i < Recipes.Count; i++)
+                {
+                    for (int j = 1; j < Recipes.Count; j++)
+                    {
+                        if (GetDamerauLevenshteinDistance(Recipes[i].Information.Name.ToLower(), SearchValue.ToLower()) > GetDamerauLevenshteinDistance(Recipes[j].Information.Name.ToLower(), SearchValue.ToLower()))
+                        {
+                            Recipe temprec = Recipes[j];
+                            Recipes[j] = Recipes[i];
+                            Recipes[i] = temprec;
+                        }
+                    }
+                }
+                Console.WriteLine("finished Sorting!");
+                StateHasChanged();
             }
-            StateHasChanged();
-            Console.WriteLine("finished Search!");
         }
     }
 
+    /// <summary>
+    /// <para>Some thing that gets similarity of strings</para>
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public int GetDamerauLevenshteinDistance(string s, string t)
     {
         if (string.IsNullOrEmpty(s))

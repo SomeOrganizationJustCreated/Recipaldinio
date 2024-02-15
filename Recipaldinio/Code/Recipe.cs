@@ -21,8 +21,8 @@ namespace Recipaldinio.Code
         public int Fats { get; set; } = 0;
         public int Proteins { get; set; } = 0;
         public int Carbohydrates { get; set; } = 0;
-        public bool? IsVegan { get; set; } = null;
-        public bool? ContainsPig { get; set; } = null;
+        public bool? IsVegan { get; set; } = false;
+        public bool? ContainsPig { get; set; } = false;
     }
 
     public class RecipeUnits
