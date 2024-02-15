@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.JSInterop;
 using Newtonsoft.Json;
 
 namespace Recipaldinio.Code
@@ -150,7 +151,46 @@ namespace Recipaldinio.Code
             //get list of recipes from broswer storage
             List<Recipe> retrievedList = await RetrieveValueAsync();
             //remove recipe from the list
-            retrievedList.Remove(recipe);
+            int recipetodeleteindex = 0;
+            for (int i = 0; i < retrievedList.Count; i++)
+            {
+                if (retrievedList[i].Information.Name == recipe.Information.Name && retrievedList[i].Information.Description == recipe.Information.Description)
+                {
+                    recipetodeleteindex = i;
+                }
+            }
+
+            await _protectedLocalStorage.DeleteAsync(_storageKey + "-" + recipetodeleteindex);
+
+            string? anotherdeserializedstringtocheckfornull = "";
+            int somej = 0;
+
+            //read all the base64 storages for currently read storage
+            while (anotherdeserializedstringtocheckfornull != null)
+            {
+                try
+                {
+                    string? serializedString = (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + recipetodeleteindex + "_b64-" + somej)).Value;
+
+                    if (string.IsNullOrEmpty(serializedString))
+                    {
+                        anotherdeserializedstringtocheckfornull = null;
+                    }
+                    else
+                    {
+                        await _protectedLocalStorage.DeleteAsync(_storageKey + "-" + recipetodeleteindex + "_b64-" + somej);
+                    }
+
+                    somej++;
+                }
+                catch
+                {
+                    anotherdeserializedstringtocheckfornull = null;
+                }
+            }
+
+            retrievedList.RemoveAt(recipetodeleteindex);
+
             //save new list to browser storage
             await StoreValueAsync(retrievedList);
         }

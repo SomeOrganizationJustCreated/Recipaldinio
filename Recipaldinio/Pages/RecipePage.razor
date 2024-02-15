@@ -19,7 +19,7 @@
             //make this list work like it's supposed to please.
             <div class="flex-column w-33_3p justify-center align-center" draggable="true">
                 <div class="noSelect cursor-pointer imageeffet borderRad-6vh" @onclick="() => { ClickedForMoreInformation = true; ClickedRecipe = Recipes[loopi]; }">
-                    <img class="borderRad-6vh cursor-pointer" draggable="false" alt="Some Image" src="data:image/jpeg;base64, @(Recipes[loopi].Image64)" />
+                    <img class="borderRad-6vh cursor-pointer" draggable="false" alt="Some Image" src="data:image/jpeg;base64, @Recipes[loopi].Image64" />
                 </div>
                 <p class="text cursor-pointer w-65p alignText-center">@(loopi + 1). @(Recipes[loopi].Information.Name)</p>
             </div>
@@ -37,34 +37,61 @@
 {
     <div class="w-100vw h-100vh positionfixed flex-row justify-center align-center">
         <div class="recipemoreinfo">
-            <span @onclick="() => { ClickedForMoreInformation = false; }" class="material-symbols-outlined">close</span>
             <div>
-                <p class="">@(ClickedRecipe.Information.Name)</p>
-                <p class="">@(ClickedRecipe.Information.Description)</p>
-                <p class="">@(ClickedRecipe.Information.Calories)</p>
-                <p class="">@(ClickedRecipe.Information.Proteins)</p>
-                <p class="">@(ClickedRecipe.Information.Carbohydrates)</p>
-            </div>
-            <div>
-                @for (int i = 0; i < ClickedRecipe.Steps.Count; i++)
-                {
-                    var loopi = i;
-                    <p>Step @loopi: @ClickedRecipe.Steps[loopi]</p>
-                }
-            </div>
-            <div>
-                <p class="">@(ClickedRecipe.Information.Name)</p>
-            </div>
+                <span @onclick="() => { ClickedForMoreInformation = false; }" class="material-symbols-outlined closespan noSelect">close</span>
+                <h1 class="descriptionName fontfam-playfair text-lightyellow">@(ClickedRecipe.Information.Name)</h1>
+                <div class="positioning">
+                    <div>
+                        <div class="pl-1vw pt-7_5vh ">
+                            <img class="borderRad-2vh w-25vw" src="data:image/jpeg;base64, @ClickedRecipe.Image64">
+                        </div>
+                        <div class="fontfam-playfair w-70p pl-2vw pt-5vh">
+                            <h2 class="text-midcolor">Step-by-step instructions</h2>
+                            @for (int i = 0; i < ClickedRecipe.Steps.Count; i++)
+                            {
+                                var loopi = i;
+                                <p><i class="fontSize-2_5vh fontfam-playfair text-lightyellow text-nostyle">Step @(loopi + 1):</i><br> <i class="fontSize-1_5vh">@ClickedRecipe.Steps[loopi]</i></p>
+                            }
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="">
+                            <h2 class="pl-8vw fontfam-playfair text-midcolor">Description</h2>
+                            <div class="w-70p pl-4vw">
+                                <p class="fontfam-playfair">@(ClickedRecipe.Information.Description)</p>
+                            </div>
+                            <div class="w-56p pl-4vw pt-5vh fontfam-playfair">
+                                <h1 class="fontfam-playfair text-midcolor">Nutritional Information</h1>
+                                <p class="">Calories: @(ClickedRecipe.Information.Calories) @(ClickedRecipe.Units.InformationUnits.Calories)</p>
+                                <p class="">Proteins: @(ClickedRecipe.Information.Proteins) @(ClickedRecipe.Units.InformationUnits.Proteins)</p>
+                                <p class="">Carbohydrates: @(ClickedRecipe.Information.Carbohydrates) @(ClickedRecipe.Units.InformationUnits.Carbohydrates)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row justify-end mb-1vh">
+                    <button @onclick="async () => { await DeleteButtonClicked(); }" class="deletebutton mr-2vw w-12_5p borderRad-0_5vh align-center cursor-pointer"><span class="deletebuttontext align-center alignText-center">Delete</span>
+                        <span class="material-symbols-outlined deleteButtonIcon text-white flex-row">delete</span></button>
+                </div>
+            </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                      
         </div>
     </div>
 }
 
 
 @code {
-    public int ShowItems = 0;
+    public int ShowItems = 0; 
     public List<Recipe> Recipes = new();
     public bool ClickedForMoreInformation = false;
     public Recipe ClickedRecipe = null;
+
+    public async Task DeleteButtonClicked()
+    {
+        await storageHandler.DeleteRecipe(ClickedRecipe);
+        ClickedForMoreInformation = false;
+        StateHasChanged();
+    }
 
     void ShowMore()
     {
