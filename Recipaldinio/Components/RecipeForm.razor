@@ -16,7 +16,7 @@
         <h1 class="text-bgcoloralt m-0 dropShadow-Soft_gray-0_1vh">Recipe Creation Form</h1>
     </div>
     <div style='visibility: @(IsOpen ? "visible" : "hidden");
-                height: @(IsOpen ? "90vh" : "0vh");
+                height: @(IsOpen ? "75vh" : "0vh");
                 transition-duration: 1.5s; transition-delay: 0.1s; overflow: hidden;'
          class='mt-10vh borderRad-1_5vh w-90p bg-midDefault flex-column justify-evenly align-center'>
         <div style="visibility: @(IsOpen ? "visible" : "hidden"); transition-duration: 1.5s;"
@@ -49,11 +49,11 @@
                         <p class="text-bgcolor dropShadow-Soft_gray-0_1vh fontSize-2vh m-0">Carbohydrates</p>
                         <input @onkeydown="args => { if (recipe.Information.Carbohydrates < 0) { recipe.Information.Carbohydrates = 0; } }" @oninput="args => { try { if (Convert.ToInt32(args.Value) <= 0) { recipe.Information.Carbohydrates = 0; args.Value = 0; } }catch{} }" class="w-95p borderRad-1vh bg-bgDefaultAlt p-0_5vh inset-black-0_5vh border-none text-bgcolor alignText-start" id="recipeInputCarbohydrates" type="number" min="0" placeholder="carbohydrates" @bind-value="recipe.Information.Carbohydrates" />
                     </div>
-                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh pt-1_5vh pb-1_5vh h-2_5p w-33_3p justify-evenly align-center">
+                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh pt-1_5vh pb-1_5vh h-2_5p p-1vw w-33_3p justify-between align-center">
                         <p class="text-bgcolor fontSize-1_75vh m-0">Is Vegan</p>
                         <input id="recipeInputIsVegan" type="checkbox" placeholder="Vegan" @bind="recipe.Information.IsVegan"/>
                     </div>
-                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh pt-1_5vh pb-1_5vh h-2_5p w-33_3p justify-evenly align-center">
+                    <div class="flex-row mt-2_25vh bg-bgDefaultAlt inset-gray-0_5vh borderRad-0_5vh pt-1_5vh pb-1_5vh h-2_5p p-1vw w-33_3p justify-between align-center">
                         <p class="text-bgcolor fontSize-1_75vh m-0">Contains Pig</p>
                         <input id="recipeInputContainsPig" type="checkbox" placeholder="ContainsPig" @bind="recipe.Information.ContainsPig"/>
                     </div>

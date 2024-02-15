@@ -26,6 +26,68 @@ namespace Recipaldinio.Code
         /// <returns></returns>
         public async Task StoreValueAsync(List<Recipe> recipes)
         {
+
+            //delete everything from protected local storage
+
+            string? deserializedstringtocheckfornull = "";
+            int somei = 0;
+
+            //read all the storages
+            while (deserializedstringtocheckfornull != null)
+            {
+                try
+                {
+                    // Retrieve the JSON string from protected storage
+                    string serializedRecipes =
+                        (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + somei)).Value;
+
+                    if (string.IsNullOrEmpty(serializedRecipes))
+                    {
+                        // Return an empty list if no data is found in storage
+                        deserializedstringtocheckfornull = null;
+                    }
+                    else
+                    {
+                        await _protectedLocalStorage.DeleteAsync(_storageKey + "-" + somei);
+                    }
+
+                    string? anotherdeserializedstringtocheckfornull = "";
+                    int somej = 0;
+
+                    //read all the base64 storages for currently read storage
+                    while (anotherdeserializedstringtocheckfornull != null)
+                    {
+                        try
+                        {
+                            string? serializedString = (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + somei + "_b64-" + somej)).Value;
+
+                            if (string.IsNullOrEmpty(serializedString))
+                            {
+                                anotherdeserializedstringtocheckfornull = null;
+                            }
+                            else
+                            {
+                                await _protectedLocalStorage.DeleteAsync(_storageKey + "-" + somei + "_b64-" + somej);
+                            }
+
+                            somej++;
+                        }
+                        catch
+                        {
+                            anotherdeserializedstringtocheckfornull = null;
+                        }
+                    }
+
+                    somei++;
+                }
+                catch
+                {
+                    deserializedstringtocheckfornull = null;
+                }
+            }
+
+            //save everything to protected local storage
+
             for (int i = 0; i < recipes.Count; i++)
             {
                 string b64str = recipes[i].Image64;
@@ -157,35 +219,6 @@ namespace Recipaldinio.Code
                 if (retrievedList[i].Information.Name == recipe.Information.Name && retrievedList[i].Information.Description == recipe.Information.Description)
                 {
                     recipetodeleteindex = i;
-                }
-            }
-
-            await _protectedLocalStorage.DeleteAsync(_storageKey + "-" + recipetodeleteindex);
-
-            string? anotherdeserializedstringtocheckfornull = "";
-            int somej = 0;
-
-            //read all the base64 storages for currently read storage
-            while (anotherdeserializedstringtocheckfornull != null)
-            {
-                try
-                {
-                    string? serializedString = (await _protectedLocalStorage.GetAsync<string>(_storageKey + "-" + recipetodeleteindex + "_b64-" + somej)).Value;
-
-                    if (string.IsNullOrEmpty(serializedString))
-                    {
-                        anotherdeserializedstringtocheckfornull = null;
-                    }
-                    else
-                    {
-                        await _protectedLocalStorage.DeleteAsync(_storageKey + "-" + recipetodeleteindex + "_b64-" + somej);
-                    }
-
-                    somej++;
-                }
-                catch
-                {
-                    anotherdeserializedstringtocheckfornull = null;
                 }
             }
 
