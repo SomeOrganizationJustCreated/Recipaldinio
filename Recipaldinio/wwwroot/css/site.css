@@ -167,6 +167,11 @@ div.Socials-right:hover span i {
     content: var(--SocialsContent);
     opacity: 1;
 }
+.Socials .fa-instagram
+{
+    height: 20%;
+    padding-top: 1vh;
+}
 div.Socials:hover {
     transition: 0.5s ease all;
     margin: 0;
@@ -191,6 +196,17 @@ div.Socials:hover span:hover
     width: 100%;
     color: var(--SelectedColor);
 }
+    div.Socials:hover span:hover .fa-instagram
+    {
+        color: transparent;
+        height: 20%;
+        padding-top: 1vh;
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        background: -webkit-repeating-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+    }
 div.Socials:hover span:hover i {
     transition: 0.5s ease all;
     color: var(--SelectedColor);
