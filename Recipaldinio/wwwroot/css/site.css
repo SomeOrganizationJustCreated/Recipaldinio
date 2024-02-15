@@ -594,10 +594,14 @@ input.navbarinput:focus {
     display: flex;
     justify-content: center;
 }
-.deletebutton{
+.deletebutton {
     position: relative;
     border: none;
-    height:3vh;
+    height: 3vh;
+    background-color: #ef2727;
+    margin-right: 2vw;
+}
+.deletebutton:hover{
     background-color: red;
 }
 .deletebuttontext{
